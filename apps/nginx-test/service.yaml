@@ -11,4 +11,4 @@ spec:
       port: 80
       targetPort: 80
       nodePort: 30800
-  type: nodePort # Or LoadBalancer if you need external access
+  type: NodePort # Or LoadBalancer if you need external access
