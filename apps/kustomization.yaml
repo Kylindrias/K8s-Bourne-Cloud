@@ -6,7 +6,7 @@ metadata:
   namespace: flux-system
 spec:
   interval: 1m0s
-  path: ./nginx # Path to your NGINX manifests within the Git repository
+  path: ./nginx-test # Path to your NGINX manifests within the Git repository
   prune: true
   sourceRef:
     kind: GitRepository
