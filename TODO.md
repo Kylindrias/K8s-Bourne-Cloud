@@ -19,3 +19,10 @@
 - Owncast
 - Resilio Sync
 - Home Assistant
+- Homepage (Pick one of many)
+- Authentik
+- Appflowy (Notion alternative?) or Anytype
+- Jitsi?
+- Teamspeak
+- Focalboard
+- Nextcloud
