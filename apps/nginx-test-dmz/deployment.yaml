@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-test-dmz
+  namespace: nginx-test-dmz # Or your desired namespace
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nginx-test-dmz
+  template:
+    metadata:
+      labels:
+        app: nginx-test-dmz
+    spec:
+      containers:
+      - name: nginx
+        image: nginx:latest
+        ports:
+        - containerPort: 80

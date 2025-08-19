@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: nginx-test-dmz
+  namespace: nginx-test-dmz # Or your desired namespace
+  annotations:
+    metallb.universe.tf/address-pool: dmz-pool
+spec:
+  selector:
+    app: nginx-test-dmz
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+  type: LoadBalancer # Or LoadBalancer if you need external access
