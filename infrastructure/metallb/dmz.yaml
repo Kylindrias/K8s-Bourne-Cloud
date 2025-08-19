@@ -15,3 +15,5 @@ metadata:
 spec:
   ipAddressPools:
     - dmz-pool
+  interfaces:
+    - ens4 # Ensure that the DMZ VLAN NIC is selected for ARP messages.
