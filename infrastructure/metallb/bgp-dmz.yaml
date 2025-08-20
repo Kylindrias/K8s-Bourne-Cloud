@@ -4,7 +4,7 @@ metadata:
   name: dmz-router
   namespace: metallb-system
 spec:
-  peerAddress: 10.105.20.1
+  peerAddress: 192.168.1.1
   peerASN: 64500
   myASN: 64501
   nodeSelectors: []
