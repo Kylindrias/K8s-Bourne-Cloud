@@ -3,4 +3,4 @@ kind: Kustomization
 resources:
   - manifest.yaml
   - lan.yaml # Ensure LAN Pool is the top of the list so it remains the default choice for newly created services.
-  - dmz.yaml
+  - bgp-dmz.yaml
