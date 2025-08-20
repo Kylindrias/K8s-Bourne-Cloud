@@ -1,0 +1,9 @@
+apiVersion: metallb.io/v1beta2
+kind: BGPAdvertisement
+metadata:
+  name: dmz-adv
+  namespace: metallb-system
+spec:
+  ipPools:
+    - dmz-pool
+  aggregationLength: 24   # optional, controls CIDR aggregation
