@@ -4,7 +4,9 @@ resources:
   - manifest.yaml
   - ip-pool-lan.yaml # Ensure LAN Pool is the top of the list so it remains the default choice for newly created services.
   - ip-pool-dmz.yaml
-  - bgp-lan.yaml 
-  - bgp-dmz.yaml
-  - bgp-advertisement-lan.yaml
-  - bgp-advertisement-dmz.yaml
+  - l2advertisement-lan.yaml
+  - l2advertisement-dmz.yaml
+  # - bgp-lan.yaml 
+  # - bgp-dmz.yaml
+  # - bgp-advertisement-lan.yaml
+  # - bgp-advertisement-dmz.yaml
