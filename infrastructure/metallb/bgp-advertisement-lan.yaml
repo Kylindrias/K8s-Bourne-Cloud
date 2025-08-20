@@ -4,6 +4,8 @@ metadata:
   name: lan-adv
   namespace: metallb-system
 spec:
-  ipPools:
+  ipAddressPools:
     - lan-pool
+  peers:
+    - lan-router
   aggregationLength: 24

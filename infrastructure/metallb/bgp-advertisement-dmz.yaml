@@ -4,6 +4,8 @@ metadata:
   name: dmz-adv
   namespace: metallb-system
 spec:
-  ipPools:
+  ipAddressPools:
     - dmz-pool
+  peers:
+    - dmz-router
   aggregationLength: 24   # optional, controls CIDR aggregation
