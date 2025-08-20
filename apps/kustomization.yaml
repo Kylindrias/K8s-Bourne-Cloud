@@ -4,3 +4,4 @@ resources:
   - nginx-test
   - nginx-test-dmz
   - busybox-dmz
+  - busybox
