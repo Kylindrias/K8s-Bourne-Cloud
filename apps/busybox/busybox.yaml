@@ -25,7 +25,7 @@ metadata:
   name: busybox-lan-lb
   namespace: default
   annotations:
-    metallb.universe.tf/address-pool: dmz-pool
+    metallb.universe.tf/address-pool: lan-pool
 spec:
   selector:
     app: busybox-lan
