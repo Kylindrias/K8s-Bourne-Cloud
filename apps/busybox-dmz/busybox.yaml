@@ -1,16 +1,23 @@
-apiVersion: v1
-kind: Pod
+apiVersion: apps/v1
+kind: Deployment
 metadata:
   name: busybox-dmz
   namespace: default
-  labels:
-    app: busybox-dmz
 spec:
-  containers:
-    - name: busybox
-      image: busybox:1.36
-      stdin: true
-      tty: true
+  replicas: 1
+  selector:
+    matchLabels:
+      app: busybox-dmz
+  template:
+    metadata:
+      labels:
+        app: busybox-dmz
+    spec:
+      containers:
+        - name: busybox
+          image: busybox:1.36
+          stdin: true
+          tty: true
 ---
 apiVersion: v1
 kind: Service
@@ -27,4 +34,3 @@ spec:
       port: 80
       targetPort: 80
   type: LoadBalancer
-  #test
