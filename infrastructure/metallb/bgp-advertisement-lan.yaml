@@ -8,4 +8,3 @@ spec:
     - lan-pool
   peers:
     - lan-router
-  aggregationLength: 24

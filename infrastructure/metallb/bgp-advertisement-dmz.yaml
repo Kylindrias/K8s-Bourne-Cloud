@@ -8,4 +8,3 @@ spec:
     - dmz-pool
   peers:
     - dmz-router
-  aggregationLength: 24   # optional, controls CIDR aggregation
