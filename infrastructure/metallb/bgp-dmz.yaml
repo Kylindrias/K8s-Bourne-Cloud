@@ -7,7 +7,6 @@ spec:
   peerAddress: 10.105.20.1
   peerASN: 64500
   myASN: 65002
-  ttl: 255
   nodeSelectors:
     - matchLabels:
         node-role.kubernetes.io/worker: "true"
