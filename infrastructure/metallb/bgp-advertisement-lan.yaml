@@ -1,0 +1,9 @@
+apiVersion: metallb.io/v1beta1
+kind: BGPAdvertisement
+metadata:
+  name: lan-adv
+  namespace: metallb-system
+spec:
+  ipPools:
+    - lan-pool
+  aggregationLength: 24
