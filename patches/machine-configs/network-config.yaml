@@ -1,0 +1,15 @@
+# Machine config patches for proper DMZ routing.
+machine:
+  network:
+    interfaces:
+      - interface: ens3   # LAN
+        dhcp: true
+        dhcpOptions:
+          routeMetric: 100
+      - interface: ens4   # DMZ
+        dhcp: true
+        dhcpOptions:
+          routeMetric: 200
+        routes:
+          - network: 10.105.20.0/24
+            gateway: 10.105.20.1
