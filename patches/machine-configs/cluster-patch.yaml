@@ -1,7 +1,4 @@
 cluster:
-  controlPlane:
-    endpoint:
-      - https://k8s.bourne.cloud:6443
   network:
     serviceSubnets:
       - 10.20.0.0/12
