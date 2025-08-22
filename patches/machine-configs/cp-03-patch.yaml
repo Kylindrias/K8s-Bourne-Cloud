@@ -4,7 +4,7 @@ machine:
     networkZone: LAN
     role: Control-Plane
   network:
-    hostname: talos-worker-03
+    hostname: talos-cp-03
     interfaces:
       - interface: ens3
         dhcp: true
