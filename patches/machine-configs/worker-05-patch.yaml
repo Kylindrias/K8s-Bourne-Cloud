@@ -1,0 +1,16 @@
+machine:
+  nodeLabels:
+    hypervisor: XCP-NG-02
+    networkZone: DMZ
+    role: Worker
+  network:
+    hostname: talos-worker-05
+    interfaces:
+      - interface: enx0
+        dhcp: true
+  install:
+    disk: /dev/xvda
+cluster:
+  network:
+    serviceSubnets:
+      - 10.96.0.0/16

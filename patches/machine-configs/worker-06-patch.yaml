@@ -1,0 +1,16 @@
+machine:
+  nodeLabels:
+    hypervisor: TrueNAS
+    networkZone: DMZ
+    role: Worker
+  network:
+    hostname: talos-worker-06
+    interfaces:
+      - interface: ens3
+        dhcp: true
+  install:
+    disk: /dev/vda
+cluster:
+  network:
+    serviceSubnets:
+      - 10.96.0.0/16
