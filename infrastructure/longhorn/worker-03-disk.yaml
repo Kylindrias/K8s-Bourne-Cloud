@@ -5,7 +5,7 @@ metadata:
   namespace: longhorn-system
 spec:
   disks:
-    sdb-disk:
+    vdb-disk:
       path: /dev/vdb
       allowScheduling: true
       storageReserved: 0
