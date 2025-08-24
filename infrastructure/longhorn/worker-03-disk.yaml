@@ -9,4 +9,4 @@ spec:
       path: /dev/vdb
       allowScheduling: true
       storageReserved: 0
-      type: block
+      diskType: block
