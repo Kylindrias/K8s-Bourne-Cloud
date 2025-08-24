@@ -7,5 +7,3 @@ metadata:
 spec:
   ipAddressPools:
     - lan-pool
-  interfaces:
-    - ens3 # Ensure that the DLAN NIC is selected for ARP messages.
