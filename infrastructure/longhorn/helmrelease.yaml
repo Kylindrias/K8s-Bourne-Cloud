@@ -15,10 +15,8 @@ spec:
       version: v1.9.1
   interval: 1m0s
   # Custom values to adjust /dev path.
-  values:
-    manager:
-      hostPathMounts:
-        - name: dev
-          mountPath: /dev
-          hostPath: /dev
-          readOnly: false
+  #values:
+   # manager:
+    #  hostPathMounts:
+     #   - name: dev
+      ###  readOnly: false
