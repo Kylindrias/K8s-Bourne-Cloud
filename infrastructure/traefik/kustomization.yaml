@@ -6,3 +6,4 @@ resources:
   - helmrelease.yaml
   # Add sites available below:
   - ingress-ngnix-test.ymal
+  - ingress-longhorn.yaml
