@@ -3,8 +3,6 @@ kind: Service
 metadata:
   name: nginx-test
   namespace: nginx-test # Or your desired namespace
-  annotations:
-    metallb.universe.tf/address-pool: lan-pool
 spec:
   selector:
     app: nginx-test
@@ -12,4 +10,4 @@ spec:
     - protocol: TCP
       port: 80
       targetPort: 80
-  type: LoadBalancer # Or LoadBalancer if you need external access
+  type: ClusterIP # Or LoadBalancer if you need external access
