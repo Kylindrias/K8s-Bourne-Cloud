@@ -9,3 +9,4 @@ spec:
       path: /dev/vdb
       allowScheduling: true
       storageReserved: 0
+      rawBlockDevice: true

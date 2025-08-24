@@ -8,7 +8,3 @@ resources:
   - worker-01-disk.yaml
   - worker-02-disk.yaml
   - worker-03-disk.yaml
-  
-# Mount /dev
-patchesStrategicMerge:
-  - longhorn-dev-mount.yaml
