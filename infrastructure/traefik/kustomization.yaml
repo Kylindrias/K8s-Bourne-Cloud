@@ -5,5 +5,5 @@ resources:
   - helmrepo.yaml
   - helmrelease.yaml
   # Add sites available below:
-  - ingress-ngnix-test.ymal
+  - ingress-nginx-test.yaml
   - ingress-longhorn.yaml
