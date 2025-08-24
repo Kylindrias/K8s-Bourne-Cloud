@@ -1,0 +1,11 @@
+apiVersion: longhorn.io/v1beta2
+kind: Node
+metadata:
+  name: talos-worker-01             # must exactly match the k8s node name
+  namespace: longhorn-system
+spec:
+  disks:
+    sdb-disk:
+      path: /dev/xvdb
+      allowScheduling: true
+      storageReserved: 0

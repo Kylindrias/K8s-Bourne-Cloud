@@ -4,3 +4,7 @@ resources:
   - namespace.yaml   # create the namespace first
   - helmrepo.yaml
   - helmrelease.yaml
+  # Add disk configurations for each node below - Warning this will wipe specified disk on specified node - BE CAREFUL!
+  - worker-01-disk.yaml
+  - worker-02.disk.yaml
+  - worker-03.disk.yaml
