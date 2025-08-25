@@ -14,9 +14,7 @@ spec:
         name: longhorn-repo
       version: v1.9.1
   interval: 1m0s
-  # Custom values to adjust /dev path.
-  #values:
-   # manager:
-    #  hostPathMounts:
-     #   - name: dev
-      ###  readOnly: false
+  # Turn off default disk
+  values:
+    defaultSettings:
+      defaultDiskPath: "" # Disable auto-created default disk.

@@ -5,9 +5,6 @@ metadata:
   namespace: longhorn-system
 spec:
   disks:
-    system-disk:
-      path: /var/lib/longhorn
-      allowScheduling: false
     xvdb-disk:
       path: /var/lib/longhorn/disks/xvdb
       allowScheduling: true
