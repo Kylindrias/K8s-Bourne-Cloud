@@ -20,13 +20,12 @@ spec:
       - "--entrypoints.websecure.address=:443"
     deployment:
       replicas: 2
-      volumes:
-        - name: acme-storage
-          persistentVolumeClaim:
-          claimName: traefik-acme-pvc
-      volumeMounts:
-        - name: acme-storage
-          mountPath: /data
+    persistence:
+      enabled: true
+      existingClaim: traefik-acme-pvc
+      path: /data
+      size: 1Gi
+      accessMode: ReadWriteOnce
     service:
       type: LoadBalancer
     certificatesResolvers:
