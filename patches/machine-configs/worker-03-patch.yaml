@@ -10,6 +10,10 @@ machine:
         dhcp: true
   install:
     disk: /dev/vda
+  disks:
+    - device: /dev/vdb
+      partitions:
+        - mountpoint: /var/lib/longhorn/disks/vdb
 cluster:
   network:
     serviceSubnets:
