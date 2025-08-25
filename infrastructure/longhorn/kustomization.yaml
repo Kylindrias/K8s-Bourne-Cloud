@@ -8,3 +8,4 @@ resources:
   - worker-01-disk.yaml
   - worker-02-disk.yaml
   - worker-03-disk.yaml
+  - ingress.yaml

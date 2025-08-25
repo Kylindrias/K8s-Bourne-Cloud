@@ -4,3 +4,4 @@ resources:
   - namespace.yaml   # create the namespace first
   - deployment.yaml
   - service.yaml
+  - ingress.yaml
