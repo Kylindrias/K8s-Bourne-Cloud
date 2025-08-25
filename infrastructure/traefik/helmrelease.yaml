@@ -37,8 +37,8 @@ spec:
             provider: cloudflare
             delayBeforeCheck: 0
     env:
-      - name: CF_API_TOKEN
+      - name: CF_DNS_API_TOKEN
         valueFrom:
           secretKeyRef:
             name: traefik-cloudflare-dns
-            key: CF_API_TOKEN
+            key: CF_DNS_API_TOKEN
