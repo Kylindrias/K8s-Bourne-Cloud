@@ -9,4 +9,4 @@ spec:
       path: /dev/xvdb
       allowScheduling: true
       storageReserved: 0
-      diskType: block
+#      diskType: block
