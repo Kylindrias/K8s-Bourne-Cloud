@@ -6,7 +6,6 @@ metadata:
 spec:
   disks:
     xvdb-disk:
-      path: /dev/xvdb
+      path: /var/lib/longhorn/disks/xvdb
       allowScheduling: true
       storageReserved: 0
-      diskType: block
