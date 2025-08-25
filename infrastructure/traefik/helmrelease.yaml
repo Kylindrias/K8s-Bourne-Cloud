@@ -20,5 +20,24 @@ spec:
       - "--entrypoints.websecure.address=:443"
     deployment:
       replicas: 2
+      volumes:
+        - name: acme-storage
+          persistentVolumeClaim:
+          claimName: traefik-acme-pvc
+      volumeMounts:
+        - name: acme-storage
+          mountPath: /data
     service:
       type: LoadBalancer
+    certificatesResolvers:
+      cloudflare-dns:
+        acme:
+          email: jason@pyroteq.com
+          storage: acme.json
+          dnsChallenge:
+            provider: cloudflare
+            delayBeforeCheck: 0
+    env:
+      - name: CF_API_TOKEN
+        existingSecret: traefik-cloudflare-dns
+        key: CF_API_TOKEN
