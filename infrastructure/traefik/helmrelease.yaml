@@ -33,7 +33,7 @@ spec:
       cloudflare-dns:
         acme:
           email: jason@pyroteq.com
-          storage: acme.json
+          storage: /data/acme.json
           dnsChallenge:
             provider: cloudflare
             delayBeforeCheck: 0
