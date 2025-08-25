@@ -1,0 +1,12 @@
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: longhorn-node-disks
+  namespace: flux-system
+spec:
+  path: "."
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  dependsOn:
+    - name: longhorn   # must match the Kustomization that installs Longhorn
