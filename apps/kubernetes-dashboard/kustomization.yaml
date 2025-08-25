@@ -6,4 +6,4 @@ resources:
   - helmrelease.yaml
 #  - rbac.yaml
 #  - kubernetes-dashboard.yaml
-#  - ingress.yaml
+  - ingress.yaml
