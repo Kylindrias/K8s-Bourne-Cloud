@@ -11,6 +11,6 @@ spec:
       kind: Rule
       services:
         - name: kubernetes-dashboard-web
-          port: 443
+          port: 8000
   tls:
     certResolver: letsencrypt
