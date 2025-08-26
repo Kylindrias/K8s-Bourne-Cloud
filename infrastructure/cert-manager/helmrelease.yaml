@@ -16,3 +16,5 @@ spec:
       # optional: reconcileStrategy: ChartVersion
   install:
     crds: CreateReplace
+    wait: true
+    timeout: 10m
