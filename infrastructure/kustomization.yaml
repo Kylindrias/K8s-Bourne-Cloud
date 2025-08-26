@@ -5,4 +5,4 @@ resources:
   - metallb
  # - cert-manager
  # - certificates - MOVE these and then everything else to their own Flux CRD
-  - traefik
+ # - traefik
