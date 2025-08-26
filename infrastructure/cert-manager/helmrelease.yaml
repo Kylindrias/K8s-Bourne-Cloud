@@ -14,7 +14,5 @@ spec:
         name: jetstack
         namespace: flux-system
       # optional: reconcileStrategy: ChartVersion
-  install:
-    crds: skip
-    wait: true
-    timeout: 5m
+  values:
+    installCRDs: true
