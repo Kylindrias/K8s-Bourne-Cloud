@@ -5,4 +5,3 @@ resources:
   - helmrepo.yaml
   - helmrelease.yaml
   - redirecttohttps.yaml
-  - sites
