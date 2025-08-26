@@ -4,10 +4,8 @@ metadata:
   name: letsencrypt-cloudflare
 spec:
   acme:
-    email: pyroteq@hotmail.com
-    server: https://acme-staging-v02.api.letsencrypt.org/directory
-# Ensure everything works before moving to production!!!    
-#    server: https://acme-v02.api.letsencrypt.org/directory
+    email: pyroteq@hotmail.com 
+    server: https://acme-v02.api.letsencrypt.org/directory
     privateKeySecretRef:
       name: letsencrypt-cloudflare-key
     solvers:
