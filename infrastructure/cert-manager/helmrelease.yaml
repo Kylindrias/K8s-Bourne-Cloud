@@ -15,6 +15,8 @@ spec:
         namespace: flux-system
       # optional: reconcileStrategy: ChartVersion
   install:
-    crds: CreateReplace
+    crds: skip
     wait: true
     timeout: 10m
+  dependsOn:
+    - cert-manager-crds
