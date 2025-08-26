@@ -5,4 +5,3 @@ resources:
 #  - pvc.yaml
   - helmrepo.yaml
   - helmrelease.yaml
-  - tlsstore.yaml

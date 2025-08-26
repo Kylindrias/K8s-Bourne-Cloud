@@ -7,5 +7,6 @@ spec:
   resources:
     - cloudflare-dns-challenge.yaml
     - bourne-cloud.yaml
+    - tlsstore.yaml
   dependsOn:
     - name: cert-manager # Wait until cert-manager CRD's are installed.
