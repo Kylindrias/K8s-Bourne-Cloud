@@ -6,4 +6,3 @@ resources:
   - helmrelease.yaml
   - cloudflare-dns-challenge.yaml
   - bourne-cloud.yaml
- 
