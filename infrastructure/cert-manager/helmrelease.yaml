@@ -17,6 +17,4 @@ spec:
   install:
     crds: skip
     wait: true
-    timeout: 10m
-  dependsOn:
-    - cert-manager-crds
+    timeout: 5m

@@ -1,13 +1,12 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: cert-manager
+  name: cert-manager-crds
   namespace: flux-system
 spec:
   interval: 5m
-  path: ../../infrastructure/cert-manager
+  path: ../../infrastructure/cert-manager-crds
   prune: true
   sourceRef:
     kind: GitRepository
     name: flux-system
-  depondsOn: cert-manager-crds
