@@ -4,9 +4,9 @@ metadata:
   name: cert-manager
   namespace: cert-manager
 spec:
+  interval: 5m
   chart:
     spec:
-      interval: 5m
       chart: cert-manager
       version: v1.18.2   # Use the latest stable version
       sourceRef:
