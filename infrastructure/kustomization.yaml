@@ -3,6 +3,7 @@ kind: Kustomization
 resources: 
   - longhorn
   - metallb
+  - sites
  # - cert-manager
  # - certificates - MOVE these and then everything else to their own Flux CRD
  # - traefik

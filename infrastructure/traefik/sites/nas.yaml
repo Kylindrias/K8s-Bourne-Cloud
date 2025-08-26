@@ -1,0 +1,45 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: nas-cert
+  namespace: traefik
+spec:
+  secretName: https-nas
+  issuerRef:
+    name: letsencrypt-cloudflare
+    kind: ClusterIssuer
+  commonName: ui.nas.bourne.cloud
+  dnsNames:
+    - ui.nas.bourne.cloud
+---
+apiVersion: traefik.io/v1alpha1
+kind: Service
+metadata:
+  name: nas-service
+  namespace: traefik
+spec:
+  loadBalancer:
+    servers:
+      - url: "https://192.168.1.10"
+      - url: "https://ui.nas.bourne.cloud"
+    serversTransport: insecureTransport
+---
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: nas-ingress
+  namespace: traefik
+spec:
+  entryPoints:
+    - web
+    - websecure
+  routes:
+    - match: Host(`ui.nas.bourne.cloud`)
+      kind: Rule
+      middlewares:
+        - name: redirect-to-https
+      services:
+        - name: nas-service
+          port: 443
+  tls:
+    secretName: https-nas
