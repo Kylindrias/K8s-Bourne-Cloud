@@ -20,7 +20,7 @@ spec:
       - "--entrypoints.websecure.address=:443"
     deployment:
       replicas: 2
-#    persistence:
+    persistence: {}
 #      enabled: true
 #      existingClaim: traefik-acme-pvc
 #      path: /data
@@ -28,7 +28,7 @@ spec:
 #      accessMode: ReadWriteOnce
     service:
       type: LoadBalancer
-#    certificatesResolvers:
+    certificatesResolvers: {}
 #      cloudflare-dns:
 #        acme:
 #          email: jason@pyroteq.com
@@ -36,7 +36,7 @@ spec:
 #          dnsChallenge:
 #            provider: cloudflare
 #            delayBeforeCheck: 0
-#    env:
+    env: []
 #      - name: CF_API_TOKEN
 #        valueFrom:
 #          secretKeyRef:
