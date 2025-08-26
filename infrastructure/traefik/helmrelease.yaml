@@ -21,24 +21,7 @@ spec:
     deployment:
       replicas: 2
     persistence: {}
-#      enabled: true
-#      existingClaim: traefik-acme-pvc
-#      path: /data
-#      size: 1Gi
-#      accessMode: ReadWriteOnce
     service:
       type: LoadBalancer
     certificatesResolvers: {}
-#      cloudflare-dns:
-#        acme:
-#          email: jason@pyroteq.com
-#          storage: /data/acme.json
-#          dnsChallenge:
-#            provider: cloudflare
-#            delayBeforeCheck: 0
     env: []
-#      - name: CF_API_TOKEN
-#        valueFrom:
-#          secretKeyRef:
-#            name: traefik-cloudflare-dns
-#            key: CF_API_TOKEN
