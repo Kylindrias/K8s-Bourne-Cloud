@@ -67,8 +67,21 @@ metadata:
   name: nas-service
   namespace: traefik
 spec:
-  type: ExternalName
-  externalName: nas.bourne.cloud
   ports:
     - port: 443
       targetPort: 443
+      protocol: TCP
+      name: https
+---
+apiVersion: v1
+kind: Endpoints
+metadata:
+  name: nas-service
+  namespace: traefik
+subsets:
+  - addresses:
+      - ip: 192.168.1.10
+    ports:
+      - port: 443
+        protocol: TCP
+        name: https
