@@ -2,7 +2,7 @@ apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute
 metadata:
   name: dashboard
-  namespace: kubernetes-dashboard
+  namespace: traefik
 spec:
   entryPoints:
     - websecure
@@ -11,6 +11,7 @@ spec:
       kind: Rule
       services:
         - name: kubernetes-dashboard-web
+          namespace: kubernetes-dashboard
           port: 8000
   tls:
     secretName: bourne-cloud-wildcard-tls
