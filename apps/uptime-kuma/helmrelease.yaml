@@ -1,0 +1,19 @@
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: uptime-kuma
+  namespace: monitoring
+spec:
+  interval: 5m
+  chart:
+    spec:
+      chart: uptime-kuma
+      sourceRef:
+        kind: HelmRepository
+        name: louislam
+        namespace: flux-system
+      version: "0.5.0"  # pick latest stable
+  values:
+    persistence:
+      enabled: true
+      size: 5Gi
