@@ -6,3 +6,6 @@ resources:
   #- busybox-dmz
   - busybox
   - kubernetes-dashboard
+  - heimdall
+  - linkding
+  - uptime-kuma

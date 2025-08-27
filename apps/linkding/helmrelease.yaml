@@ -1,0 +1,21 @@
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: linkding
+  namespace: bookmarks
+spec:
+  interval: 5m
+  chart:
+    spec:
+      chart: linkding
+      sourceRef:
+        kind: HelmRepository
+        name: linuxserver
+        namespace: flux-system
+      version: "1.0.0"  # pick latest stable
+  values:
+    persistence:
+      enabled: true
+      size: 2Gi
+    database:
+      type: sqlite

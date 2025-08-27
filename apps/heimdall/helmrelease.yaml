@@ -1,0 +1,19 @@
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: heimdall
+  namespace: dashboard
+spec:
+  interval: 5m
+  chart:
+    spec:
+      chart: heimdall
+      sourceRef:
+        kind: HelmRepository
+        name: linuxserver
+        namespace: flux-system
+      version: "0.1.0"
+  values:
+    persistence:
+      enabled: true
+      size: 1Gi
