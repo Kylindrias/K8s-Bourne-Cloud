@@ -19,20 +19,38 @@ metadata:
 spec:
   insecureSkipVerify: true
 ---
+# HTTP route - redirects to HTTPS
 apiVersion: traefik.io/v1alpha1
 kind: IngressRoute
 metadata:
-  name: nas-ingress
+  name: nas-ingress-http
   namespace: traefik
 spec:
   entryPoints:
     - web
-    - websecure
   routes:
     - match: Host(`ui.nas.bourne.cloud`)
       kind: Rule
       middlewares:
         - name: redirect-to-https
+      services:
+        - name: nas-service
+          kind: Service
+          namespace: traefik
+          port: 443
+---
+# HTTPS route - uses the certificate
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: nas-ingress-https
+  namespace: traefik
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - match: Host(`ui.nas.bourne.cloud`)
+      kind: Rule
       services:
         - name: nas-service
           kind: Service
