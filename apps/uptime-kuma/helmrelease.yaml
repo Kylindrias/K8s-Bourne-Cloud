@@ -7,13 +7,27 @@ spec:
   interval: 5m
   chart:
     spec:
-      chart: uptime-kuma
+      chart: app-template
+      version: "3.5.1" # pick latest
       sourceRef:
         kind: HelmRepository
-        name: louislam
+        name: bjw-s
         namespace: flux-system
-      version: "0.5.0"  # pick latest stable
   values:
+    controllers:
+      main:
+        containers:
+          main:
+            image:
+              repository: louislam/uptime-kuma
+              tag: 1.23.13 # pick latest from Docker Hub
+    service:
+      main:
+        ports:
+          http:
+            port: 3001
     persistence:
-      enabled: true
-      size: 5Gi
+      data:
+        enabled: true
+        size: 5Gi
+        accessMode: ReadWriteOnce
