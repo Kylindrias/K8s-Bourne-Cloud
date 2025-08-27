@@ -50,7 +50,7 @@ metadata:
   namespace: traefik
 spec:
   type: ExternalName
-  externalName: 192.168.1.10   # or ui.nas.bourne.cloud
+  externalName: ui.nas.bourne.cloud
   ports:
     - port: 443
       targetPort: 443
