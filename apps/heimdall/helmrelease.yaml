@@ -7,13 +7,38 @@ spec:
   interval: 5m
   chart:
     spec:
-      chart: heimdall
+      chart: app-template
+      version: "3.x"
       sourceRef:
         kind: HelmRepository
-        name: linuxserver
+        name: bjw-s
         namespace: flux-system
-      version: "0.1.0"
   values:
+    controllers:
+      main:
+        containers:
+          main:
+            image:
+              repository: lscr.io/linuxserver/heimdall
+              tag: latest
+    service:
+      main:
+        ports:
+          http:
+            port: 80
+    ingress:
+      main:
+        enabled: true
+        className: traefik
+        hosts:
+          - host: bourne.cloud
+            paths:
+              - path: /
+                pathType: Prefix
+                service:
+                  identifier: main
+                  port: http
     persistence:
-      enabled: true
-      size: 1Gi
+      config:
+        enabled: true
+        size: 1Gi
