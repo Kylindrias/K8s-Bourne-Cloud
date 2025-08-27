@@ -39,7 +39,7 @@ spec:
           namespace: traefik
           port: 443
 ---
-# HTTPS route - uses the certificate
+# HTTPS route - uses the certificate with WebSocket support
 apiVersion: traefik.io/v1alpha1
 kind: IngressRoute
 metadata:
