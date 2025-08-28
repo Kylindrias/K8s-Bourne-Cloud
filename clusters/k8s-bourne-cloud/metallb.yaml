@@ -6,9 +6,9 @@ metadata:
 spec:
   interval: 5m
   path: ../../infrastructure/metallb
-  prune: false
+  prune: true
   sourceRef:
     kind: GitRepository
     name: flux-system
   dependsOn: 
-    - name: namespaces
+    - name: metallb-rbac
