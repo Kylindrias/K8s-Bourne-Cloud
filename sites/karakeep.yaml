@@ -1,0 +1,30 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: karakeep-cert
+  namespace: traefik
+spec:
+  secretName: https-karakeep
+  issuerRef:
+    name: letsencrypt-cloudflare
+    kind: ClusterIssuer
+  dnsNames:
+    - karakeep.bourne.cloud
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: karakeep
+  namespace: traefik
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - match: Host(`karakeep.bourne.cloud`)
+      kind: Rule
+      services:
+        - name: karakeep
+          namespace: karakeep
+          port: 3000
+  tls:
+    secretName: https-karakeep
