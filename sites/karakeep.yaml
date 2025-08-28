@@ -2,7 +2,7 @@ apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
   name: karakeep-cert
-  namespace: traefik
+  namespace: karakeep
 spec:
   secretName: https-karakeep
   issuerRef:
@@ -15,7 +15,7 @@ apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute
 metadata:
   name: karakeep
-  namespace: traefik
+  namespace: karakeep
 spec:
   entryPoints:
     - websecure
