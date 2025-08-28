@@ -36,7 +36,6 @@ spec:
       services:
         - name: nas-service
           kind: Service
-          namespace: traefik
           port: 443
 ---
 # HTTPS route - uses the certificate with WebSocket support
@@ -54,7 +53,6 @@ spec:
       services:
         - name: nas-service
           kind: Service
-          namespace: traefik
           port: 443
           scheme: https
           serversTransport: insecure-transport
