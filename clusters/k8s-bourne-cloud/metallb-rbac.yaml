@@ -1,14 +1,14 @@
-apiVersion: kustomize.toolkit.fluxcd.io/v1
-kind: Kustomization
-metadata:
-  name: metallb-rbac
-  namespace: flux-system
-spec:
-  interval: 5m
-  path: ../../infrastructure/metallb/rbac
-  prune: true
-  sourceRef:
-    kind: GitRepository
-    name: flux-system
-  dependsOn: 
-    - name: metallb-crds
+# apiVersion: kustomize.toolkit.fluxcd.io/v1
+# kind: Kustomization
+# metadata:
+#   name: metallb-rbac
+#   namespace: flux-system
+# spec:
+#   interval: 5m
+#   path: ../../infrastructure/metallb/rbac
+#   prune: true
+#   sourceRef:
+#     kind: GitRepository
+#     name: flux-system
+#   dependsOn: 
+#     - name: metallb-crds
