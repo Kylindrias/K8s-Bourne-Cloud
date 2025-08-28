@@ -1,10 +1,10 @@
-# # Disable as BGP is being used
+# Disable as BGP is being used
 
-# apiVersion: metallb.io/v1beta1
-# kind: L2Advertisement
-# metadata:
-#   name: lan-advertisement
-#   namespace: metallb-system
-# spec:
-#   ipAddressPools:
-#     - lan-pool
+apiVersion: metallb.io/v1beta1
+kind: L2Advertisement
+metadata:
+  name: lan-advertisement
+  namespace: metallb-system
+spec:
+  ipAddressPools:
+    - lan-pool
