@@ -1,10 +1,10 @@
-apiVersion: metallb.io/v1beta1
-kind: BGPAdvertisement
-metadata:
-  name: lan-adv
-  namespace: metallb-system
-spec:
-  ipAddressPools:
-    - lan-pool
-  peers:
-    - lan-router
+# apiVersion: metallb.io/v1beta1
+# kind: BGPAdvertisement
+# metadata:
+#   name: lan-adv
+#   namespace: metallb-system
+# spec:
+#   ipAddressPools:
+#     - lan-pool
+#   peers:
+#     - lan-router
