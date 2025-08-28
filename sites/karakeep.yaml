@@ -18,13 +18,16 @@ metadata:
   namespace: karakeep
 spec:
   entryPoints:
+    - web
     - websecure
   routes:
     - match: Host(`karakeep.bourne.cloud`)
       kind: Rule
+      middlewares:
+        - name: redirect-to-https
+          namespace: traefik
       services:
         - name: web
-          namespace: karakeep
           port: 3000
   tls:
     secretName: https-karakeep
