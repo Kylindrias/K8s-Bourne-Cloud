@@ -11,15 +11,15 @@ spec:
   dnsNames:
     - karakeep.bourne.cloud
 ---
+# HTTP → redirect
 apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute
 metadata:
-  name: karakeep
+  name: karakeep-http
   namespace: karakeep
 spec:
   entryPoints:
     - web
-    - websecure
   routes:
     - match: Host(`karakeep.bourne.cloud`)
       kind: Rule
@@ -28,7 +28,22 @@ spec:
           namespace: traefik
       services:
         - name: web
-          namespace: karakeep
+          port: 3000
+---
+# HTTPS route
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: karakeep-https
+  namespace: karakeep
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - match: Host(`karakeep.bourne.cloud`)
+      kind: Rule
+      services:
+        - name: web
           port: 3000
   tls:
     secretName: https-karakeep
