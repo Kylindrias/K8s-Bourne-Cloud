@@ -8,3 +8,5 @@ spec:
   peerASN: 64500
   myASN: 64501
   nodeSelectors: []
+  holdTime: 90s
+  keepaliveTime: 30s
