@@ -23,7 +23,7 @@ spec:
     - match: Host(`karakeep.bourne.cloud`)
       kind: Rule
       services:
-        - name: karakeep
+        - name: web
           namespace: karakeep
           port: 3000
   tls:
