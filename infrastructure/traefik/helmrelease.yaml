@@ -16,6 +16,7 @@ spec:
   values:
     globalArguments:
       - "--providers.kubernetesingress"
+      - "--providers.kubernetescrd.allowCrossNamespace=true"
       - "--entrypoints.web.address=:80"
       - "--entrypoints.websecure.address=:443"
     deployment:
