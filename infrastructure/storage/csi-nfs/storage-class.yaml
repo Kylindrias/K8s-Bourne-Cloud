@@ -7,8 +7,8 @@ parameters:
   server: 192.168.1.10        # Replace with your NFS server IP
   share: /mnt/ssd/k8s        # Replace with your NFS export path
   # Optional: Uncomment and modify as needed
-  subDir: ${pvc.metadata.name}     # Creates subdirectory per PVC
+  subDir: ${pvc.metadata.namespace}/${pvc.metadata.name}     # Creates subdirectory per PVC
   # mountPermissions: "0755"
-reclaimPolicy: Delete
+reclaimPolicy: Retain
 volumeBindingMode: Immediate
 allowVolumeExpansion: true
