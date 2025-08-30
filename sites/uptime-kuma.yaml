@@ -27,7 +27,7 @@ spec:
         - name: redirect-to-https
           namespace: traefik
       services:
-        - name: web
+        - name: uptime-kuma-web
           port: 3001
 ---
 # HTTPS route
@@ -43,7 +43,7 @@ spec:
     - match: Host(`status.bourne.cloud`)
       kind: Rule
       services:
-        - name: web
+        - name: uptime-kuma-web
           port: 3001
   tls:
     secretName: https-uptime-kuma
