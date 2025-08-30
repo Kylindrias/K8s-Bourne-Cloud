@@ -3,7 +3,7 @@ kind: Kustomization
 resources:
   - karakeep
   - uptime-kuma
+  - homarr
   #- kubernetes-dashboard
   #- heimdall
   #- linkding
-  #- uptime-kuma
