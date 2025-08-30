@@ -6,7 +6,9 @@
 
 ## Apps
 
-- Karakeep (or Linkding or other)
+- Karakeep
+- Linkding
+- Linkwarden
 - Odoo
 - Uptime Kuma
 - Unifi Controller
@@ -30,3 +32,4 @@
 - Sonaar
 - ARRRRRR
 - Overseer
+- Readeck
