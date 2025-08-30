@@ -9,12 +9,9 @@ spec:
       chart: homarr
       reconcileStrategy: ChartVersion
       sourceRef:
-        kind: HelmRepository
+        kind: OCIRepository
         name: homarr-repo
       version: 5.8.0
   interval: 1m0s
   values:
-    service:
-      type: ClusterIP  # or LoadBalancer/NodePort
-    ingress:
-      enabled: false   # set to true if you want ingress
+    # your values here
