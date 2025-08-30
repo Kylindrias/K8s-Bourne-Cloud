@@ -9,9 +9,8 @@ spec:
       chart: homarr
       reconcileStrategy: ChartVersion
       sourceRef:
-        kind: OCIRepository
+        kind: HelmRepository
         name: homarr-repo
       version: 5.8.0
   interval: 1m0s
-  values:
-    # your values here
+#  values:
