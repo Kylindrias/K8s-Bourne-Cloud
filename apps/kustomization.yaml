@@ -4,6 +4,6 @@ resources:
   - karakeep
   - uptime-kuma
   - homarr
-  #- kubernetes-dashboard
+  - kubernetes-dashboard
   #- heimdall
   #- linkding
