@@ -1,0 +1,49 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: uptime-kuma-cert
+  namespace: uptime-kuma
+spec:
+  secretName: https-uptime-kuma
+  issuerRef:
+    name: letsencrypt-cloudflare
+    kind: ClusterIssuer
+  dnsNames:
+    - uptime-kuma.bourne.cloud
+---
+# HTTP → redirect
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: uptime-kuma-http
+  namespace: uptime-kuma
+spec:
+  entryPoints:
+    - web
+  routes:
+    - match: Host(`status.bourne.cloud`)
+      kind: Rule
+      middlewares:
+        - name: redirect-to-https
+          namespace: traefik
+      services:
+        - name: web
+          port: 3000
+---
+# HTTPS route
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: uptime-kuma-https
+  namespace: uptime-kuma
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - match: Host(`status.bourne.cloud`)
+      kind: Rule
+      services:
+        - name: web
+          port: 3000
+  tls:
+    secretName: https-uptime-kuma
