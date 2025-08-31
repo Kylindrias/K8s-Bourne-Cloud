@@ -1,16 +1,26 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: homarr-release
+  name: homarr
   namespace: homarr
 spec:
+  interval: 30m
   chart:
     spec:
       chart: homarr
-      reconcileStrategy: ChartVersion
       sourceRef:
         kind: HelmRepository
-        name: homarr-repo
-      version: 5.8.0
-  interval: 1m0s
-#  values:
+        name: homarr-oci
+        namespace: flux-system
+      # pin to a version you’ve tested; current as of 2025-08-30 is 5.9.0
+      version: "5.9.0"
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    remediation:
+      retries: 3
+  values:
+    # Enable RBAC so Homarr’s Kubernetes read-only dashboard works
+    rbac:
+      enabled: true
