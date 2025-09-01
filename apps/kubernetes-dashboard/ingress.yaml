@@ -13,5 +13,6 @@ spec:
         - name: kubernetes-dashboard-kong-proxy
           namespace: kubernetes-dashboard
           port: 443
+          scheme: https
   tls:
     secretName: bourne-cloud-wildcard-tls
