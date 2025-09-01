@@ -27,7 +27,7 @@ spec:
         - name: redirect-to-https
           namespace: traefik
       services:
-        - name: web
+        - name: homarr
           port: 7575
 ---
 # HTTPS route
@@ -43,7 +43,7 @@ spec:
     - match: Host(`homarr.bourne.cloud`)
       kind: Rule
       services:
-        - name: web
+        - name: homarr
           port: 7575
   tls:
     secretName: https-homarr
