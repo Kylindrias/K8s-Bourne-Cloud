@@ -1,0 +1,49 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: ntfy-cert
+  namespace: ntfy
+spec:
+  secretName: https-ntfy
+  issuerRef:
+    name: letsencrypt-cloudflare
+    kind: ClusterIssuer
+  dnsNames:
+    - ntfy.bourne.cloud
+---
+# HTTP → redirect
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: ntfy-http
+  namespace: ntfy
+spec:
+  entryPoints:
+    - web
+  routes:
+    - match: Host(`ntfy.bourne.cloud`)
+      kind: Rule
+      middlewares:
+        - name: redirect-to-https
+          namespace: traefik
+      services:
+        - name: ntfy-svc
+          port: 80
+---
+# HTTPS route
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: ntfy-https
+  namespace: ntfy
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - match: Host(`ntfy.bourne.cloud`)
+      kind: Rule
+      services:
+        - name: ntfy-svc
+          port: 80
+  tls:
+    secretName: https-ntfy
