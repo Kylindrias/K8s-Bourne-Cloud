@@ -5,7 +5,7 @@ metadata:
   namespace: kubernetes-dashboard
 spec:
   entryPoints:
-    - web
+    - websecure
   routes:
     - match: Host(`ui.k8s.bourne.cloud`)
       kind: Rule
