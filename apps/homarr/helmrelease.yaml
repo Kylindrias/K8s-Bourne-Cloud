@@ -24,3 +24,11 @@ spec:
     # Enable RBAC so Homarr’s Kubernetes read-only dashboard works
     rbac:
       enabled: true
+
+    probes:
+      liveness:
+        initialDelaySeconds: 120  # Give it 2 minutes
+        timeoutSeconds: 30
+      readiness:
+        initialDelaySeconds: 60
+        timeoutSeconds: 30
