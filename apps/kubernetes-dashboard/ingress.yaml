@@ -13,5 +13,7 @@ spec:
         - name: kubernetes-dashboard-web
           namespace: kubernetes-dashboard
           port: 8000
+          # Maybe needed?
+          scheme: https
   tls:
     secretName: bourne-cloud-wildcard-tls
