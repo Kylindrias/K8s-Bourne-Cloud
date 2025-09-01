@@ -28,7 +28,9 @@ spec:
     # Disable persistent storage for now (no PVC)
     persistence:
       homarrDatabase:
-        enabled: false
+        enabled: true
+        size: 1Gi
+        storageClass: ""
 
     # Ensure /appdata exists using an ephemeral emptyDir for testing
     extraVolumes:
