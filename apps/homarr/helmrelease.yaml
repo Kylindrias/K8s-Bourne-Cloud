@@ -25,15 +25,15 @@ spec:
     rbac:
       enabled: true
   
-  # Disable persistent storage for now (no PVC)
-  persistence:
-    homarrDatabase:
-      enabled: false
+    # Disable persistent storage for now (no PVC)
+    persistence:
+      homarrDatabase:
+        enabled: false
 
-  # Ensure /appdata exists using an ephemeral emptyDir for testing
-  extraVolumes:
-    - name: appdata
-      emptyDir: {}
-  extraVolumeMounts:
-    - name: appdata
-      mountPath: /appdata
+    # Ensure /appdata exists using an ephemeral emptyDir for testing
+    extraVolumes:
+      - name: appdata
+        emptyDir: {}
+    extraVolumeMounts:
+      - name: appdata
+        mountPath: /appdata
