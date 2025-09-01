@@ -10,10 +10,8 @@ spec:
     - match: Host(`ui.k8s.bourne.cloud`)
       kind: Rule
       services:
-        - name: kubernetes-dashboard-web
+        - name: kubernetes-dashboard-kong-proxy
           namespace: kubernetes-dashboard
-          port: 8000
-          # Maybe needed?
-          scheme: https
+          port: 443
   tls:
     secretName: bourne-cloud-wildcard-tls
