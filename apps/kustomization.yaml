@@ -5,6 +5,6 @@ resources:
   - uptime-kuma
   - homarr
   - kubernetes-dashboard
-  #- ntfy
+  - ntfy
   #- heimdall
   #- linkding
