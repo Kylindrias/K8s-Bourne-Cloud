@@ -20,9 +20,10 @@ spec:
       - "--entrypoints.web.address=:80"
       - "--entrypoints.websecure.address=:443"
     deployment:
-      replicas: 2
+      kind: DaemonSet
+      hostNetwor: true
     persistence: {}
     service:
-      type: LoadBalancer
+      type: ClusterIP
     certificatesResolvers: {}
     env: []
