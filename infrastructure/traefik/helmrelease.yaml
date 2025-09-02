@@ -21,7 +21,7 @@ spec:
       - "--entrypoints.websecure.address=:443"
     deployment:
       kind: DaemonSet
-      hostNetwor: true
+      hostNetwork: true
     persistence: {}
     service:
       type: ClusterIP
