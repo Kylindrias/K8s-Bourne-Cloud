@@ -1,0 +1,19 @@
+http:
+  routers:
+    sophos-router-http:
+      rule: Host(`sophos.bourne.cloud`)
+      service: sophos-service
+    sophos-router-https:
+      rule: Host(`sophos.bourne.cloud`)
+      service: sophos-service
+      tls:
+        certResolver: letsencrypt
+  services:
+    sophos-service:
+      loadBalancer:
+        serversTransport: insecureTransport
+        servers:
+          - url: "https://192.168.1.1:4444"
+  serversTransports:
+    insecureTransport:
+      insecureSkipVerify: true

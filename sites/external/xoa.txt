@@ -1,0 +1,19 @@
+http:
+  routers:
+    xoa-router-http:
+      rule: Host(`xoa.bourne.cloud`)
+      service: xoa-service
+    xoa-router-https:
+      rule: Host(`xoa.bourne.cloud`)
+      service: xoa-service
+      tls:
+        certResolver: letsencrypt
+  services:
+    xoa-service:
+      loadBalancer:
+        serversTransport: insecureTransport
+        servers:
+          - url: "https://192.168.1.50:443"
+  serversTransports:
+    insecureTransport:
+      insecureSkipVerify: true

@@ -1,0 +1,19 @@
+http:
+  routers:
+    unifi-http:
+      rule: Host(`unifi.bourne.cloud`)
+      service: unifi-service
+    unifi-https:
+      rule: Host(`unifi.bourne.cloud`)
+      service: unifi-service
+      tls:
+        certResolver: letsencrypt
+  services:
+    unifi-service:
+      loadBalancer:
+        serversTransport: insecureTransport
+        servers:
+          - url: "https://192.168.1.18:8443"
+  serversTransports:
+    insecureTransport:
+      insecureSkipVerify: true

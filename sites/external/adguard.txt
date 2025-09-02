@@ -1,0 +1,16 @@
+http:
+  routers:
+    adguard-router-http:
+      rule: Host(`adguard.bourne.cloud`)
+      service: adguard-service
+    adguard-router-https:
+      rule: Host(`adguard.bourne.cloud`)
+      service: adguard-service
+      tls:
+        certResolver: letsencrypt
+  services:
+    adguard-service:
+      loadBalancer:
+        servers:
+          - url: "http://192.168.1.2"
+          - url: "https://192.168.1.2"
