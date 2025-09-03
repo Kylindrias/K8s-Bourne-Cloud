@@ -3,4 +3,4 @@ kind: Kustomization
 resources:
   - helmrepo.yaml
   - helmrelease.yaml
-namespace: n8n # select namespace for whole application
+namespace: n8n
