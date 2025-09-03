@@ -1,0 +1,25 @@
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: n8n
+  namespace: n8n
+spec:
+  interval: 5m
+  chart:
+    spec:
+      chart: n8n
+      version: "1.13.7"   # pick a stable version
+      sourceRef:
+        kind: HelmRepository
+        name: n8n
+        namespace: n8n
+  values:
+    deployment:
+      replicas: 1
+    service:
+      enabled: true
+      type: ClusterIP
+      port: 5678
+      name: http
+      annotations: {}
+      

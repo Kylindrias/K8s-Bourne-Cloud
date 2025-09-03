@@ -6,5 +6,4 @@ resources:
   - homarr
   - kubernetes-dashboard
   - ntfy
-  #- heimdall
-  #- linkding
+  - n8n
