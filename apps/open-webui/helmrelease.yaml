@@ -34,8 +34,8 @@ spec:
       port: 8080
     
     # # Optional: Persistence for chat history and user data
-    # persistence:
-    #   enabled: true
+    persistence:
+      enabled: false
     #   size: 10Gi
     #   storageClass: ""  # Use default storage class
     
