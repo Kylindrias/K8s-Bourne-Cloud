@@ -22,4 +22,20 @@ spec:
       port: 5678
       name: http
       annotations: {}
+# Disable PostgreSQL since we're using SQLite
+    postgresql:
+      enabled: false
+    
+    # Basic n8n configuration for SQLite
+    config:
+      database:
+        type: sqlite
+        sqlite:
+          database: /home/node/.n8n/database.sqlite
       
+      generic:
+        timezone: UTC
+    
+    # Disable persistence for testing
+    persistence:
+      enabled: false
