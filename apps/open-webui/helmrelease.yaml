@@ -1,0 +1,59 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: open-webui
+  namespace: open-webui
+spec:
+  interval: 5m
+  chart:
+    spec:
+      chart: open-webui
+      sourceRef:
+        kind: HelmRepository
+        name: open-webui
+        namespace: flux-system
+  values:
+    # Disable the bundled Ollama since you're running it externally
+    ollama:
+      enabled: false
+    
+    # Configure Open WebUI to connect to your external Ollama instance
+    openwebui:
+      env:
+        # Replace with your VM's IP address and port
+        - name: OLLAMA_BASE_URL
+          value: "http://YOUR_VM_IP:11434"
+        
+        # Optional: Set other environment variables
+        - name: WEBUI_SECRET_KEY
+          value: "your-secret-key-change-this"
+    
+    # Service configuration
+    service:
+      type: ClusterIP
+      port: 8080
+    
+    # # Optional: Persistence for chat history and user data
+    # persistence:
+    #   enabled: true
+    #   size: 10Gi
+    #   storageClass: ""  # Use default storage class
+    
+    # # Optional: Resource limits
+    # resources:
+    #   requests:
+    #     cpu: 100m
+    #     memory: 256Mi
+    #   limits:
+    #     cpu: 500m
+    #     memory: 1Gi
+    
+    # Optional: Ingress for external access
+    ingress:
+      enabled: false  # Set to true if you want external access
+      # className: "nginx"  # Uncomment and set your ingress class
+      # hosts:
+      #   - host: openwebui.yourdomain.com
+      #     paths:
+      #       - path: /
+      #         pathType: Prefix
