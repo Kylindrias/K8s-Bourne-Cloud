@@ -12,7 +12,7 @@ spec:
       sourceRef:
         kind: HelmRepository
         name: community-charts
-        namespace: n8n
+        namespace: flux-system
   values:
     deployment:
       replicas: 1
