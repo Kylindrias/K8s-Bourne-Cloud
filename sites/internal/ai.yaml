@@ -1,0 +1,49 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: open-webui-cert
+  namespace: open-webui
+spec:
+  secretName: https-open-webui
+  issuerRef:
+    name: letsencrypt-cloudflare
+    kind: ClusterIssuer
+  dnsNames:
+    - ai.bourne.cloud
+---
+# HTTP → redirect
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: open-webui-http
+  namespace: open-webui
+spec:
+  entryPoints:
+    - web
+  routes:
+    - match: Host(`ai.bourne.cloud`)
+      kind: Rule
+      middlewares:
+        - name: redirect-to-https
+          namespace: traefik
+      services:
+        - name: open-webui
+          port: 8080
+---
+# HTTPS route
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: open-webui-https
+  namespace: open-webui
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - match: Host(`ai.bourne.cloud`)
+      kind: Rule
+      services:
+        - name: open-webui
+          port: 8080
+  tls:
+    secretName: https-open-webui
