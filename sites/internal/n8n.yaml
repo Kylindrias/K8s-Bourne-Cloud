@@ -1,0 +1,49 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: n8n-cert
+  namespace: n8n
+spec:
+  secretName: https-n8n
+  issuerRef:
+    name: letsencrypt-cloudflare
+    kind: ClusterIssuer
+  dnsNames:
+    - n8n.bourne.cloud
+---
+# HTTP → redirect
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: n8n-http
+  namespace: n8n
+spec:
+  entryPoints:
+    - web
+  routes:
+    - match: Host(`n8n.bourne.cloud`)
+      kind: Rule
+      middlewares:
+        - name: redirect-to-https
+          namespace: traefik
+      services:
+        - name: n8n-svc
+          port: 80
+---
+# HTTPS route
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: n8n-https
+  namespace: n8n
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - match: Host(`n8n.bourne.cloud`)
+      kind: Rule
+      services:
+        - name: n8n-svc
+          port: 80
+  tls:
+    secretName: https-n8n
