@@ -22,7 +22,7 @@ spec:
       env:
         # Replace with your VM's IP address and port
         - name: OLLAMA_BASE_URL
-          value: "http://YOUR_VM_IP:11434"
+          value: "http://192.168.1.17:11434"
         
         # Optional: Set other environment variables
         - name: WEBUI_SECRET_KEY
