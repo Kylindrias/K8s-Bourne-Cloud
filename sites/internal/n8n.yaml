@@ -28,7 +28,7 @@ spec:
           namespace: traefik
       services:
         - name: n8n
-          port: 8000
+          port: 5678
 ---
 # HTTPS route
 apiVersion: traefik.containo.us/v1alpha1
@@ -44,6 +44,6 @@ spec:
       kind: Rule
       services:
         - name: n8n
-          port: 8000
+          port: 5678
   tls:
     secretName: https-n8n
