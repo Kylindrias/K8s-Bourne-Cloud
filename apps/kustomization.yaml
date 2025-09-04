@@ -7,3 +7,4 @@ resources:
   - kubernetes-dashboard
   - ntfy
   - n8n
+  - open-webui
