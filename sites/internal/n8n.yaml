@@ -27,7 +27,7 @@ spec:
         - name: redirect-to-https
           namespace: traefik
       services:
-        - name: n8n-svc
+        - name: n8n
           port: 8000
 ---
 # HTTPS route
@@ -43,7 +43,7 @@ spec:
     - match: Host(`n8n.bourne.cloud`)
       kind: Rule
       services:
-        - name: n8n-svc
+        - name: n8n
           port: 8000
   tls:
     secretName: https-n8n
