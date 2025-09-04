@@ -11,7 +11,7 @@ spec:
       version: "1.13.7"
       sourceRef:
         kind: HelmRepository
-        name: n8n
+        name: community-charts
         namespace: n8n
   values:
     deployment:
