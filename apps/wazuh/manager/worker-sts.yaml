@@ -143,7 +143,7 @@ spec:
         namespace: wazuh
       spec:
         accessModes:
-          - ReadWriteOnce
+          - ReadWriteMany
         storageClassName: wazuh-storage
         resources:
           requests:
