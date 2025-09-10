@@ -4,6 +4,6 @@ namespace: wazuh
 resources:
   - cluster-svc.yaml
   - master-svc.yaml
-  - workers-svc.yaml
+  - worker-svc.yaml
   - master-sts.yaml
   - worker-sts.yaml
