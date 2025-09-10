@@ -8,3 +8,4 @@ resources:
   - ntfy
   - n8n
   - open-webui
+  - wazuh
