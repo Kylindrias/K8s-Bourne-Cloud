@@ -1,0 +1,85 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: sophos-cert
+  namespace: traefik
+spec:
+  secretName: https-sophos
+  issuerRef:
+    name: letsencrypt-cloudflare
+    kind: ClusterIssuer
+  dnsNames:
+    - sophos.bourne.cloud
+---
+apiVersion: traefik.io/v1alpha1
+kind: ServersTransport
+metadata:
+  name: insecure-transport
+  namespace: traefik
+spec:
+  insecureSkipVerify: true
+---
+# HTTP route - redirects to HTTPS
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: sophos-ingress-http
+  namespace: traefik
+spec:
+  entryPoints:
+    - web
+  routes:
+    - match: Host(`sophos.bourne.cloud`)
+      kind: Rule
+      middlewares:
+        - name: redirect-to-https
+      services:
+        - name: sophos-service
+          kind: Service
+          port: 443
+---
+# HTTPS route - uses the certificate with WebSocket support
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: sophos-ingress-https
+  namespace: traefik
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - match: Host(`sophos.bourne.cloud`)
+      kind: Rule
+      services:
+        - name: sophos-service
+          kind: Service
+          port: 443
+          scheme: https
+          serversTransport: insecure-transport
+  tls:
+    secretName: https-sophos
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: sophos-service
+  namespace: traefik
+spec:
+  ports:
+    - port: 443
+      targetPort: 443
+      protocol: TCP
+      name: https
+---
+apiVersion: v1
+kind: Endpoints
+metadata:
+  name: sophos-service
+  namespace: traefik
+subsets:
+  - addresses:
+      - ip: 192.168.1.1
+    ports:
+      - port: 4444
+        protocol: TCP
+        name: https

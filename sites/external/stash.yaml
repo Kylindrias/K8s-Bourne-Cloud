@@ -1,0 +1,85 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: stash-cert
+  namespace: traefik
+spec:
+  secretName: https-stash
+  issuerRef:
+    name: letsencrypt-cloudflare
+    kind: ClusterIssuer
+  dnsNames:
+    - stash.bourne.cloud
+---
+apiVersion: traefik.io/v1alpha1
+kind: ServersTransport
+metadata:
+  name: insecure-transport
+  namespace: traefik
+spec:
+  insecureSkipVerify: true
+---
+# HTTP route - redirects to HTTPS
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: stash-ingress-http
+  namespace: traefik
+spec:
+  entryPoints:
+    - web
+  routes:
+    - match: Host(`stash.bourne.cloud`)
+      kind: Rule
+      middlewares:
+        - name: redirect-to-https
+      services:
+        - name: stash-service
+          kind: Service
+          port: 443
+---
+# HTTPS route - uses the certificate with WebSocket support
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: stash-ingress-https
+  namespace: traefik
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - match: Host(`stash.bourne.cloud`)
+      kind: Rule
+      services:
+        - name: stash-service
+          kind: Service
+          port: 443
+          scheme: https
+          serversTransport: insecure-transport
+  tls:
+    secretName: https-stash
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: stash-service
+  namespace: traefik
+spec:
+  ports:
+    - port: 443
+      targetPort: 443
+      protocol: TCP
+      name: https
+---
+apiVersion: v1
+kind: Endpoints
+metadata:
+  name: stash-service
+  namespace: traefik
+subsets:
+  - addresses:
+      - ip: 192.168.1.15
+    ports:
+      - port: 9999
+        protocol: TCP
+        name: https

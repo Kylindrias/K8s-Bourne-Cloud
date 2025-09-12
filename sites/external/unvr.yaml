@@ -1,0 +1,85 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: unvr-cert
+  namespace: traefik
+spec:
+  secretName: https-unvr
+  issuerRef:
+    name: letsencrypt-cloudflare
+    kind: ClusterIssuer
+  dnsNames:
+    - unvr.bourne.cloud
+---
+apiVersion: traefik.io/v1alpha1
+kind: ServersTransport
+metadata:
+  name: insecure-transport
+  namespace: traefik
+spec:
+  insecureSkipVerify: true
+---
+# HTTP route - redirects to HTTPS
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: unvr-ingress-http
+  namespace: traefik
+spec:
+  entryPoints:
+    - web
+  routes:
+    - match: Host(`unvr.bourne.cloud`)
+      kind: Rule
+      middlewares:
+        - name: redirect-to-https
+      services:
+        - name: unvr-service
+          kind: Service
+          port: 443
+---
+# HTTPS route - uses the certificate with WebSocket support
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: unvr-ingress-https
+  namespace: traefik
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - match: Host(`unvr.bourne.cloud`)
+      kind: Rule
+      services:
+        - name: unvr-service
+          kind: Service
+          port: 443
+          scheme: https
+          serversTransport: insecure-transport
+  tls:
+    secretName: https-unvr
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: unvr-service
+  namespace: traefik
+spec:
+  ports:
+    - port: 443
+      targetPort: 443
+      protocol: TCP
+      name: https
+---
+apiVersion: v1
+kind: Endpoints
+metadata:
+  name: unvr-service
+  namespace: traefik
+subsets:
+  - addresses:
+      - ip: 192.168.1.201
+    ports:
+      - port: 443
+        protocol: TCP
+        name: https
