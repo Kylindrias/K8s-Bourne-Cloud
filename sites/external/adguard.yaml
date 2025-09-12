@@ -31,25 +31,25 @@ spec:
           port: 443
 ---
 # HTTPS route - uses the certificate with WebSocket support
-apiVersion: traefik.io/v1alpha1
-kind: IngressRoute
-metadata:
-  name: adguard-ingress-https
-  namespace: traefik
-spec:
-  entryPoints:
-    - websecure
-  routes:
-    - match: Host(`adguard.bourne.cloud`)
-      kind: Rule
-      services:
-        - name: adguard-service
-          kind: Service
-          port: 443
-          scheme: https
-          serversTransport: insecure-transport
-  tls:
-    secretName: https-adguard
+# apiVersion: traefik.io/v1alpha1
+# kind: IngressRoute
+# metadata:
+#   name: adguard-ingress-https
+#   namespace: traefik
+# spec:
+#   entryPoints:
+#     - websecure
+#   routes:
+#     - match: Host(`adguard.bourne.cloud`)
+#       kind: Rule
+#       services:
+#         - name: adguard-service
+#           kind: Service
+#           port: 443
+#           scheme: https
+#           serversTransport: insecure-transport
+#   tls:
+#     secretName: https-adguard
 ---
 apiVersion: v1
 kind: Service
@@ -72,6 +72,6 @@ subsets:
   - addresses:
       - ip: 192.168.1.2
     ports:
-      - port: 443
+      - port: 80
         protocol: TCP
         name: https
