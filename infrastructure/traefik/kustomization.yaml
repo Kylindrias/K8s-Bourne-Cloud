@@ -4,3 +4,4 @@ resources:
   - helmrepo.yaml
   - helmrelease.yaml
   - redirecttohttps.yaml
+  - insecuretransport.yaml
