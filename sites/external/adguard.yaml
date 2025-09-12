@@ -74,4 +74,4 @@ subsets:
     ports:
       - port: 80
         protocol: TCP
-        name: http
+        name: https
