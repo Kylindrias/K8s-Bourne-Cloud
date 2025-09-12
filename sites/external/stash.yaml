@@ -59,7 +59,7 @@ metadata:
 spec:
   ports:
     - port: 443
-      targetPort: 443
+      targetPort: 9999
       protocol: TCP
       name: https
 ---

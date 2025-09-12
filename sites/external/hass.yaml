@@ -11,14 +11,6 @@ spec:
   dnsNames:
     - hass.bourne.cloud
 ---
-apiVersion: traefik.io/v1alpha1
-kind: ServersTransport
-metadata:
-  name: insecure-transport
-  namespace: traefik
-spec:
-  insecureSkipVerify: true
----
 # HTTP route - redirects to HTTPS
 apiVersion: traefik.io/v1alpha1
 kind: IngressRoute
@@ -67,7 +59,7 @@ metadata:
 spec:
   ports:
     - port: 443
-      targetPort: 443
+      targetPort: 8123
       protocol: TCP
       name: https
 ---
