@@ -28,7 +28,7 @@ spec:
       services:
         - name: hass-service
           kind: Service
-          port: 80
+          port: 8123
 ---
 # HTTPS route - uses the certificate with WebSocket support
 apiVersion: traefik.io/v1alpha1
@@ -45,9 +45,9 @@ spec:
       services:
         - name: hass-service
           kind: Service
-          port: 80
-          scheme: https
-          serversTransport: insecure-transport
+          port: 8123
+          # scheme: https
+          # serversTransport: insecure-transport
   tls:
     secretName: https-hass
 ---
@@ -58,7 +58,7 @@ metadata:
   namespace: traefik
 spec:
   ports:
-    - port: 80
+    - port: 8123
       targetPort: 8123
       protocol: TCP
       name: https
