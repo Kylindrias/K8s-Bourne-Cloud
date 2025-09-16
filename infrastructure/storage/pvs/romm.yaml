@@ -9,5 +9,5 @@ spec:
     - ReadOnlyMany  # Read-only as requested
   nfs:
     server: 192.168.1.10  # Your NAS IP
-    path: /ROMS/LIBRARY/HERE    # Path to your ROM directory
+    path: /mnt/storage-zfs/Emulation/roms    # Path to your ROM directory
   persistentVolumeReclaimPolicy: Retain
