@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: romm-config
+  namespace: romm
+data:
+  DB_HOST: "romm-mariadb"
+  DB_NAME: "romm"
+  DB_USER: "romm-user"
