@@ -16,6 +16,21 @@ spec:
       # CRITICAL: Disable service links to prevent Kubernetes networking issues
       enableServiceLinks: false
       initContainers:
+      - name: create-config
+        image: busybox:1.35
+        command: ['sh', '-c']
+        args:
+        - |
+          if [ ! -f /romm/config/config.yml ]; then
+            echo "Creating empty config.yml file..."
+            touch /romm/config/config.yml
+            echo "Config file created successfully"
+          else
+            echo "Config file already exists"
+          fi
+        volumeMounts:
+        - name: romm-config
+          mountPath: /romm/config
       - name: wait-for-db
         image: busybox:1.35
         command: ['sh', '-c']
