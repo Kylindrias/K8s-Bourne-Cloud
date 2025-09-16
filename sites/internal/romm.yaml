@@ -28,7 +28,7 @@ spec:
           namespace: traefik
       services:
         - name: romm-svc
-          port: 80
+          port: 8080
 ---
 # HTTPS route
 apiVersion: traefik.containo.us/v1alpha1
@@ -44,6 +44,6 @@ spec:
       kind: Rule
       services:
         - name: romm-svc
-          port: 80
+          port: 8080
   tls:
     secretName: https-romm
