@@ -5,7 +5,7 @@ metadata:
   namespace: romm
 spec:
   accessModes:
-    - ReadWriteMany
+    - ReadOnlyMany
   resources:
     requests:
       storage: 100Gi # Adjust based on your ROM collection size
