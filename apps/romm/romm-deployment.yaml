@@ -97,6 +97,10 @@ spec:
               name: romm-secrets
               key: STEAMGRIDDB_API_KEY
               optional: true
+        - name: HASHEOUS_API_ENABLED
+          value: "true"
+        - name: PLAYMATCH_API_ENABLED
+          value: "true"
         volumeMounts:
         - name: romm-library
           mountPath: /romm/library
