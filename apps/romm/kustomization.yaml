@@ -5,3 +5,4 @@ resources:
   - romm-mariadb-service.yaml
   - romm-deployment.yaml
   - romm-service.yaml
+  - configmap.yaml
