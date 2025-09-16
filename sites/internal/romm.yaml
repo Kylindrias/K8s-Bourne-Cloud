@@ -1,0 +1,49 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: romm-cert
+  namespace: romm
+spec:
+  secretName: https-romm
+  issuerRef:
+    name: letsencrypt-cloudflare
+    kind: ClusterIssuer
+  dnsNames:
+    - romm.bourne.cloud
+---
+# HTTP → redirect
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: romm-http
+  namespace: romm
+spec:
+  entryPoints:
+    - web
+  routes:
+    - match: Host(`romm.bourne.cloud`)
+      kind: Rule
+      middlewares:
+        - name: redirect-to-https
+          namespace: traefik
+      services:
+        - name: romm-svc
+          port: 80
+---
+# HTTPS route
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: romm-https
+  namespace: romm
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - match: Host(`romm.bourne.cloud`)
+      kind: Rule
+      services:
+        - name: romm-svc
+          port: 80
+  tls:
+    secretName: https-romm

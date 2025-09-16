@@ -33,3 +33,6 @@
 - ARRRRRR
 - Overseer
 - Readeck
+- Paperless NGX
+- Everywall
+- Romm

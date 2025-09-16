@@ -1,0 +1,127 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: romm
+  namespace: romm
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: romm
+  template:
+    metadata:
+      labels:
+        app: romm
+    spec:
+      # CRITICAL: Disable service links to prevent Kubernetes networking issues
+      enableServiceLinks: false
+      initContainers:
+      - name: wait-for-db
+        image: busybox:1.35
+        command: ['sh', '-c']
+        args:
+        - |
+          until nc -z romm-mariadb 3306; do
+            echo "Waiting for database..."
+            sleep 2
+          done
+          echo "Database is ready!"
+      containers:
+      - name: romm
+        image: rommapp/romm:latest
+        ports:
+        - containerPort: 8080
+        env:
+        - name: DB_HOST
+          valueFrom:
+            configMapKeyRef:
+              name: romm-config
+              key: DB_HOST
+        - name: DB_NAME
+          valueFrom:
+            configMapKeyRef:
+              name: romm-config
+              key: DB_NAME
+        - name: DB_USER
+          valueFrom:
+            configMapKeyRef:
+              name: romm-config
+              key: DB_USER
+        - name: DB_PASSWD
+          valueFrom:
+            secretKeyRef:
+              name: romm-secrets
+              key: DB_PASSWD
+        - name: ROMM_AUTH_SECRET_KEY
+          valueFrom:
+            secretKeyRef:
+              name: romm-secrets
+              key: ROMM_AUTH_SECRET_KEY
+        # Optional API keys
+        - name: IGDB_CLIENT_ID
+          valueFrom:
+            secretKeyRef:
+              name: romm-secrets
+              key: IGDB_CLIENT_ID
+              optional: true
+        - name: IGDB_CLIENT_SECRET
+          valueFrom:
+            secretKeyRef:
+              name: romm-secrets
+              key: IGDB_CLIENT_SECRET
+              optional: true
+        - name: MOBYGAMES_API_KEY
+          valueFrom:
+            secretKeyRef:
+              name: romm-secrets
+              key: MOBYGAMES_API_KEY
+              optional: true
+        - name: STEAMGRIDDB_API_KEY
+          valueFrom:
+            secretKeyRef:
+              name: romm-secrets
+              key: STEAMGRIDDB_API_KEY
+              optional: true
+        volumeMounts:
+        - name: romm-library
+          mountPath: /romm/library
+        - name: romm-assets
+          mountPath: /romm/assets
+        - name: romm-config
+          mountPath: /romm/config
+        - name: romm-resources
+          mountPath: /romm/resources
+        - name: romm-redis-data
+          mountPath: /redis-data
+        livenessProbe:
+          httpGet:
+            path: /
+            port: 8080
+          initialDelaySeconds: 60
+          periodSeconds: 30
+          timeoutSeconds: 10
+          failureThreshold: 3
+        readinessProbe:
+          httpGet:
+            path: /
+            port: 8080
+          initialDelaySeconds: 30
+          periodSeconds: 10
+          timeoutSeconds: 5
+          failureThreshold: 3
+      volumes:
+      - name: romm-library
+        persistentVolumeClaim:
+          claimName: romm-library-pvc
+      - name: romm-assets
+        persistentVolumeClaim:
+          claimName: romm-assets-pvc
+      - name: romm-config
+        persistentVolumeClaim:
+          claimName: romm-config-pvc
+      - name: romm-resources
+        persistentVolumeClaim:
+          claimName: romm-resources-pvc
+      - name: romm-redis-data
+        persistentVolumeClaim:
+          claimName: romm-redis-pvc

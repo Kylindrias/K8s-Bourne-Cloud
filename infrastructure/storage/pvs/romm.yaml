@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: romm-library-nfs-pv
+spec:
+  capacity:
+    storage: 1Ti  # Adjust to your NAS capacity
+  accessModes:
+    - ReadOnlyMany  # Read-only as requested
+  nfs:
+    server: 192.168.1.10  # Your NAS IP
+    path: /ROMS/LIBRARY/HERE    # Path to your ROM directory
+  persistentVolumeReclaimPolicy: Retain
