@@ -27,7 +27,7 @@ spec:
         - name: redirect-to-https
           namespace: traefik
       services:
-        - name: romm-svc
+        - name: romm-service
           port: 80
 ---
 # HTTPS route
@@ -43,7 +43,7 @@ spec:
     - match: Host(`romm.bourne.cloud`)
       kind: Rule
       services:
-        - name: romm-svc
+        - name: romm-service
           port: 80
   tls:
     secretName: https-romm
