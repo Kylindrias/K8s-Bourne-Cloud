@@ -21,7 +21,7 @@ spec:
   entryPoints:
     - web
   routes:
-    - match: Host(`k8s.bourne.cloud`)
+    - match: Host(`ui.k8s.bourne.cloud`)
       kind: Rule
       middlewares:
         - name: redirect-to-https
@@ -40,7 +40,7 @@ spec:
   entryPoints:
     - websecure
   routes:
-    - match: Host(`k8s.bourne.cloud`)
+    - match: Host(`ui.k8s.bourne.cloud`)
       kind: Rule
       services:
         - name: kubernetes-dashboard-web
