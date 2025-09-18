@@ -57,3 +57,7 @@ spec:
       #     paths:
       #       - path: /
       #         pathType: Prefix
+  
+    # Disable pipelines completely (removes PVC + pods)
+    pipelines:
+      enabled: false
