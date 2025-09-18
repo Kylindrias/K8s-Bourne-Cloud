@@ -9,7 +9,7 @@ spec:
     name: letsencrypt-cloudflare
     kind: ClusterIssuer
   dnsNames:
-    - ai.bourne.cloud
+    - ui.k8s.bourne.cloud
 ---
 # HTTP → redirect
 apiVersion: traefik.containo.us/v1alpha1
