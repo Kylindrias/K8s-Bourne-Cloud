@@ -46,8 +46,8 @@ spec:
         - name: hass-service
           kind: Service
           port: 443
-          # scheme: https
-          # serversTransport: insecure-transport
+          scheme: https
+          serversTransport: insecure-transport
   tls:
     secretName: https-hass
 ---
