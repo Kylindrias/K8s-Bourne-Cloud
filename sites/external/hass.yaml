@@ -28,7 +28,7 @@ spec:
       services:
         - name: hass-service
           kind: Service
-          port: 8123
+          port: 443
 ---
 # HTTPS route - uses the certificate with WebSocket support
 apiVersion: traefik.io/v1alpha1
@@ -45,7 +45,7 @@ spec:
       services:
         - name: hass-service
           kind: Service
-          port: 8123
+          port: 443
           # scheme: https
           # serversTransport: insecure-transport
   tls:
@@ -72,6 +72,6 @@ subsets:
   - addresses:
       - ip: 192.168.1.16
     ports:
-      - port: 443
+      - port: 8123
         protocol: TCP
         name: https
