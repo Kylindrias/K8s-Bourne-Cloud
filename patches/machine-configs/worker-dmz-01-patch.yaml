@@ -1,10 +1,10 @@
 machine:
   nodeLabels:
-    hypervisor: XCP-NG-02
+    hypervisor: XCP-NG-01
     networkZone: DMZ
     role: Worker
   network:
-    hostname: talos-worker-05
+    hostname: talos-dmz-worker-01
     interfaces:
       - interface: enx0
         dhcp: true
