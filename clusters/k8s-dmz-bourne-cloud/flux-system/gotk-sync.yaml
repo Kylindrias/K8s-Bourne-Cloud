@@ -25,3 +25,4 @@ spec:
   sourceRef:
     kind: GitRepository
     name: flux-system
+recurse: false # Prevent Flux from scanning all subdirectories including old .YAML's and out of order
