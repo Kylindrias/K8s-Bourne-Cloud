@@ -10,7 +10,7 @@ spec:
   sourceRef:
     kind: GitRepository
     name: flux-system
-  dependsOn:
+#  dependsOn:
 #    - name: storage
 #    - name: secrets
 #    - name: repos
