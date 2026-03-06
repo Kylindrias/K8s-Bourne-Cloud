@@ -11,10 +11,9 @@ spec:
     kind: GitRepository
     name: flux-system
   dependsOn:
-    - name: pvcs-shared
-    - name: secrets-dmz
+    - name: storage
+    - name: secrets
     - name: repos
-    - name: longhorn
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
@@ -29,7 +28,6 @@ spec:
     kind: GitRepository
     name: flux-system
   dependsOn:
-    - name: pvcs-dmz
+    - name: storage
     - name: secrets-dmz
     - name: repos
-    - name: longhorn
