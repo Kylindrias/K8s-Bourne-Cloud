@@ -1,28 +1,11 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: pvcs-shared
-  namespace: flux-system
-spec:
-  interval: 5m
-  path: ../../infrastructure/storage/pvcs
-  prune: false
-  sourceRef:
-    kind: GitRepository
-    name: flux-system
-  dependsOn: 
-    - name: pvs-dmz
-    - name: pvs-shared
-    - name: longhorn
----
-apiVersion: kustomize.toolkit.fluxcd.io/v1
-kind: Kustomization
-metadata:
   name: pvcs-dmz
   namespace: flux-system
 spec:
   interval: 5m
-  path: ../../infrastructure/storage/pvcs
+  path: ../../infrastructure/storage/pvcs/dmz
   prune: false
   sourceRef:
     kind: GitRepository

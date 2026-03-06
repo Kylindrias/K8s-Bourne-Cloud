@@ -11,4 +11,6 @@ spec:
     kind: GitRepository
     name: flux-system
   dependsOn: 
-    - name: pvs
+    - name: pvs-lan
+    - name: pvs-shared
+    - name: longhorn
