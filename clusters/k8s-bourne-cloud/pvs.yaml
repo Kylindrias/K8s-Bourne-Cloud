@@ -5,7 +5,7 @@ metadata:
   namespace: flux-system
 spec:
   interval: 5m
-  path: ../../infrastructure/storage/pvs
+  path: ../../infrastructure/storage/pvs/shared
   prune: false
   sourceRef:
     kind: GitRepository
