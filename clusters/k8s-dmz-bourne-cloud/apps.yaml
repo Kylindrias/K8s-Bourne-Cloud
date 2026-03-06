@@ -29,5 +29,5 @@ spec:
     name: flux-system
   dependsOn:
     - name: pvcs-dmz
-    - name: secrets
+    - name: secrets-dmz
     - name: repos
