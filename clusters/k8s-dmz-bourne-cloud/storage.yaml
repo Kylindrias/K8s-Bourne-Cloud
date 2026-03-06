@@ -11,5 +11,6 @@ spec:
     kind: GitRepository
     name: flux-system
   dependsOn: 
-    - name: namespaces
+    - name: namespaces-dmz
+    - name: namespaces-shared
     - name: repos
