@@ -12,7 +12,7 @@ spec:
     name: flux-system
   dependsOn:
     - name: pvcs-shared
-    - name: secrets
+    - name: secrets-dmz
     - name: repos
     - name: longhorn
 ---
