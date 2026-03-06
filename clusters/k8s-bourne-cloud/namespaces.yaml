@@ -1,11 +1,24 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: namespaces
+  name: namespaces-shared
   namespace: flux-system
 spec:
   interval: 5m
-  path: ../../infrastructure/namespaces
+  path: ../../infrastructure/namespaces/shared
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: namespaces-lan
+  namespace: flux-system
+spec:
+  interval: 5m
+  path: ../../infrastructure/namespaces/lan
   prune: true
   sourceRef:
     kind: GitRepository

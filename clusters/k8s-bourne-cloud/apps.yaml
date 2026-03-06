@@ -1,16 +1,33 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: apps
+  name: apps-shared
   namespace: flux-system
 spec:
   interval: 5m
-  path: ../../apps
+  path: ../../apps/shared
   prune: true
   sourceRef:
     kind: GitRepository
     name: flux-system
   dependsOn:
     - name: storage
-    - name: secrets
+    - name: secrets-lan
+    - name: repos
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: apps-lan
+  namespace: flux-system
+spec:
+  interval: 5m
+  path: ../../apps/lan
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  dependsOn:
+    - name: storage
+    - name: secrets-lan
     - name: repos
