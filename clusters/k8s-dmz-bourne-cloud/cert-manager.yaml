@@ -13,4 +13,3 @@ spec:
   dependsOn:
     - name: namespaces
     - name: repos
-    - name: secrets-dmz
