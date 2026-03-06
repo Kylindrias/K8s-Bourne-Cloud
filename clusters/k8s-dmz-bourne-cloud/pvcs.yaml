@@ -13,4 +13,5 @@ spec:
   dependsOn: 
     - name: pvs-dmz
     - name: pvs-shared
-    - name: longhorn
+    - name: storage
+    - name: nfs-storageclass-dmz
