@@ -1,4 +1,4 @@
-apiVersion: helm.toolkit.fluxcd.io/v2beta1
+apiVersion: helm.toolkit.fluxcd.io/v2beta2
 kind: HelmRelease
 metadata:
   name: traefik
@@ -16,12 +16,18 @@ spec:
   values:
     globalArguments:
       - "--providers.kubernetesingress"
+      - "--providers.kubernetesingress.ingressclass=traefik"
       - "--providers.kubernetescrd.allowCrossNamespace=true"
       - "--entrypoints.web.address=:80"
       - "--entrypoints.websecure.address=:443"
+      - "--entrypoints.rtmp.address=:1935"
     deployment:
       kind: DaemonSet
       hostNetwork: true
+      updateStrategy:
+        rollingUpdate:
+          maxSurge: 0
+          maxUnavailable: 1
     dnsPolicy: ClusterFirstWithHostNet
     ports:
       web:
@@ -35,6 +41,10 @@ spec:
       traefik:
         port: 9000
         hostPort: 9000
+        protocol: TCP
+      rtmp:
+        port: 1935
+        hostPort: 1935
         protocol: TCP
     persistence: {}
     service:
