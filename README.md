@@ -4,25 +4,32 @@ Virtualised Talos Linux running on XCP-NG and TrueNAS.
 
 ## Talos Installation Instructions
 
-https://www.talos.dev/v1.10/introduction/prodnotes/
+https://www.talos.dev/v1.12/introduction/prodnotes/
 
 ## Cluster
 
-- Talos-CP-01
+### K8s.Bourne.Cloud
+- Talos-LAN-01
     192.168.1.60
     XCP-NG-01
-- Talos-CP-02
+- Talos-LAN-02
     192.168.1.61
     XCP-NG02
-- Talos-CP-03
+- Talos-LAN-03
     192.168.1.62
     TrueNAS
-- Talos-Worker-01
-    192.168.1.63
+
+Currently on v1.10
+
+### K8s.DMZ.Bourne.Cloud
+- Talos-DMZ-01
+    10.105.20.60
     XCP-NG-01
-- Talos-Worker-02
-    192.168.1.64
-    XCP-NG-02
-- Talos-Worker-03
-    192.168.1.65
+- Talos-DMZ-02
+    10.105.20.61
+    XCP-NG02
+- Talos-DMZ-03
+    10.105.20.62
     TrueNAS
+
+Currently on v1.12
