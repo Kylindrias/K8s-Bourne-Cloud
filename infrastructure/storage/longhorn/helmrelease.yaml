@@ -17,17 +17,19 @@ spec:
   values:
     defaultSettings:
       backupTarget: nfs://192.168.1.10:/mnt/storage-zfs/k8s-longhorn-backup
-      createDefaultDiskLabeledNodes: true
-      systemManagedComponentsNodeSelector: "longhorn.storage:true"
+
+### Use this to separate worker/CP nodes for Longhorn storage. No need to use now with untainted CPs.
+    #   createDefaultDiskLabeledNodes: true
+    #   systemManagedComponentsNodeSelector: "longhorn.storage:true"
   
-    longhornManager:
-      nodeSelector:
-        longhorn.storage: "true"
+    # longhornManager:
+    #   nodeSelector:
+    #     longhorn.storage: "true"
 
-    longhornUI:
-      nodeSelector:
-        longhorn.storage: "true"
+    # longhornUI:
+    #   nodeSelector:
+    #     longhorn.storage: "true"
 
-    longhornDriver:
-      nodeSelector:
-        longhorn.storage: "true"
+    # longhornDriver:
+    #   nodeSelector:
+    #     longhorn.storage: "true"
