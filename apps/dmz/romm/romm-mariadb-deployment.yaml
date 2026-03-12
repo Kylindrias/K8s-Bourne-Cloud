@@ -1,0 +1,62 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: romm-mariadb
+  namespace: romm
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: romm-mariadb
+  template:
+    metadata:
+      labels:
+        app: romm-mariadb
+    spec:
+      containers:
+      - name: mariadb
+        image: mariadb:latest
+        ports:
+        - containerPort: 3306
+        env:
+        - name: MARIADB_ROOT_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: romm-secrets
+              key: MARIADB_ROOT_PASSWORD
+        - name: MARIADB_DATABASE
+          value: "romm"
+        - name: MARIADB_USER
+          value: "romm-user"
+        - name: MARIADB_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: romm-secrets
+              key: MARIADB_PASSWORD
+        volumeMounts:
+        - name: mariadb-data
+          mountPath: /var/lib/mysql
+        livenessProbe:
+          exec:
+            command:
+            - healthcheck.sh
+            - --connect
+            - --innodb_initialized
+          initialDelaySeconds: 30
+          periodSeconds: 10
+          timeoutSeconds: 5
+          failureThreshold: 5
+        readinessProbe:
+          exec:
+            command:
+            - healthcheck.sh
+            - --connect
+            - --innodb_initialized
+          initialDelaySeconds: 10
+          periodSeconds: 10
+          timeoutSeconds: 5
+          failureThreshold: 5
+      volumes:
+      - name: mariadb-data
+        persistentVolumeClaim:
+          claimName: mariadb-data-pvc

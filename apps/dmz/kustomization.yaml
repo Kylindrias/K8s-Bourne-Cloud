@@ -3,4 +3,6 @@ kind: Kustomization
 resources:
   - nginx-test
   - owncast
+#  - romm
+  - karakeep
 #  - focalboard
