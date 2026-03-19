@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ghost
+  namespace: ghost
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ghost
+  template:
+    metadata:
+      labels:
+        app: ghost
+    spec:
+      containers:
+        - name: ghost
+          image: ghost:latest
+          ports:
+            - containerPort: 2368
+          env:
+            - name: url
+              value: https://ghost.bourne.cloud
+            - name: database__client
+              value: mysql
+            - name: database__connection__host
+              value: ghost-mariadb.ghost.svc.cluster.local
+            - name: database__connection__port
+              value: "3306"
+            - name: database__connection__database
+              value: ghost
+            - name: database__connection__user
+              value: ghost
+            - name: database__connection__password
+              valueFrom:
+                secretKeyRef:
+                  name: ghost-mariadb-secret
+                  key: db-password

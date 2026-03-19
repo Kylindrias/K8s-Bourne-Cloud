@@ -1,0 +1,24 @@
+apiVersion: k8s.mariadb.com/v1alpha1
+kind: MariaDB
+metadata:
+  name: ghost-mariadb
+  namespace: ghost
+spec:
+  rootPasswordSecretKeyRef:
+    name: ghost-mariadb-secret
+    key: root-password
+
+  database: ghost
+  username: ghost
+  passwordSecretKeyRef:
+    name: ghost-mariadb-secret
+    key: db-password
+
+  storage:
+    storageClassName: longhorn
+    size: 2Gi
+
+  replicas: 3
+
+  galera:
+    enabled: true
