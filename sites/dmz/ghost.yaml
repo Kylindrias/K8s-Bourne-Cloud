@@ -14,7 +14,7 @@ spec:
 apiVersion: traefik.io/v1alpha1
 kind: IngressRoute
 metadata:
-  name: ghost
+  name: ghost-https
   namespace: ghost
 spec:
   entryPoints:
@@ -31,7 +31,7 @@ spec:
 apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute
 metadata:
-  name: ghost
+  name: ghost-http
   namespace: ghost
 spec:
   entryPoints:

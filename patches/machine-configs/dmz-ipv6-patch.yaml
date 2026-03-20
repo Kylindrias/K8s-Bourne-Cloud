@@ -1,0 +1,9 @@
+cluster:
+  network:
+    podSubnets:
+      - 10.244.0.0/16
+      - fd00:244::/56
+    serviceSubnets:
+      - 10.96.0.0/16
+      - fd00:96::/112
+### This creates IPv6 Pod Subnets and Service Subnets to allow pods to actually communicate via IPv6
