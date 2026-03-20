@@ -6,3 +6,4 @@ metadata:
 data:
   KARAKEEP_VERSION: release
   NEXTAUTH_URL: http://karakeep.bourne.cloud:3000
+  DISABLE_SIGNUPS: "true"
