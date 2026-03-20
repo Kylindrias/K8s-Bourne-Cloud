@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rackpeek
+  namespace: rackpeek
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: rackpeek
+  template:
+    metadata:
+      labels:
+        app: rackpeek
+    spec:
+      securityContext:
+        fsGroup: 1654
+      containers:
+        - name: rackpeek
+          image: aptacode/rackpeek:latest
+          ports:
+            - containerPort: 8080
+          securityContext:
+            runAsUser: 1654
+          volumeMounts:
+            - name: config
+              mountPath: /app/config
+      volumes:
+        - name: config
+          persistentVolumeClaim:
+            claimName: rackpeek-config
