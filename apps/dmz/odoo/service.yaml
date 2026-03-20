@@ -9,7 +9,5 @@ spec:
   ports:
     - name: http
       port: 8069
-      targetPort: 8069
     - name: longpoll
       port: 8072
-      targetPort: 8072
