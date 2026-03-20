@@ -6,6 +6,6 @@ resources:
   - ghost
   - karakeep
   - odoo
-  - rackpeek
+# - rackpeek
 #  - focalboard
 #  - romm
