@@ -1,0 +1,103 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: odoo
+  namespace: odoo
+  labels:
+    app: odoo
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: odoo
+  strategy:
+    type: Recreate                  # required with ReadWriteOnce PVC
+  template:
+    metadata:
+      labels:
+        app: odoo
+    spec:
+      securityContext:
+        runAsUser: 101              # odoo user in official image
+        runAsGroup: 101
+        fsGroup: 101
+
+      initContainers:
+        - name: wait-for-db
+          image: busybox:1.36
+          command:
+            - sh
+            - -c
+            - |
+              until nc -z odoo-db-rw 5432; do
+                echo "waiting for postgres..."; sleep 3
+              done
+
+      containers:
+        - name: odoo
+          image: odoo:17.0           # pin to a specific digest in production
+          ports:
+            - containerPort: 8069
+              name: http
+            - containerPort: 8072
+              name: longpoll
+          env:
+            - name: HOST
+              valueFrom:
+                secretKeyRef:
+                  name: odoo-db-app        # auto-created by CNPG
+                  key: host
+            - name: PORT
+              valueFrom:
+                secretKeyRef:
+                  name: odoo-db-app
+                  key: port
+            - name: USER
+              valueFrom:
+                secretKeyRef:
+                  name: odoo-db-app
+                  key: username
+            - name: PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: odoo-db-app
+                  key: password
+            - name: PGDATABASE
+              valueFrom:
+                secretKeyRef:
+                  name: odoo-db-app
+                  key: dbname
+          volumeMounts:
+            - name: config
+              mountPath: /etc/odoo/odoo.conf
+              subPath: odoo.conf
+            - name: filestore
+              mountPath: /var/lib/odoo
+          resources:
+            requests:
+              cpu: 500m
+              memory: 1Gi
+            limits:
+              cpu: 2000m
+              memory: 2Gi
+          livenessProbe:
+            httpGet:
+              path: /web/health
+              port: 8069
+            initialDelaySeconds: 60
+            periodSeconds: 30
+            failureThreshold: 5
+          readinessProbe:
+            httpGet:
+              path: /web/health
+              port: 8069
+            initialDelaySeconds: 30
+            periodSeconds: 10
+
+      volumes:
+        - name: config
+          configMap:
+            name: odoo-config
+        - name: filestore
+          persistentVolumeClaim:
+            claimName: odoo-filestore

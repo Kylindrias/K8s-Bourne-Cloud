@@ -1,0 +1,36 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: odoo-tls
+  namespace: odoo
+spec:
+  secretName: odoo-tls-cert
+  issuerRef:
+    name: letsencrypt-prod        # ← your ClusterIssuer name
+    kind: ClusterIssuer
+  dnsNames:
+    - odoo-test.bourne.cloud
+---
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: odoo
+  namespace: odoo
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+spec:
+  entryPoints:
+    - websecure
+  tls:
+    secretName: odoo-tls-cert     # ← cert-manager managed, not Traefik ACME
+  routes:
+    - match: Host(`odoo-test.bourne.cloud`)
+      kind: Rule
+      services:
+        - name: odoo
+          port: 8069
+    - match: Host(`odoo-test.bourne.cloud`) && PathPrefix(`/longpolling`)
+      kind: Rule
+      services:
+        - name: odoo
+          port: 8072

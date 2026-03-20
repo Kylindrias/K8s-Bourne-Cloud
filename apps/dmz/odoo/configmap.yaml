@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: odoo-config
+  namespace: odoo
+data:
+  odoo.conf: |
+    [options]
+    addons_path = /mnt/extra-addons,/usr/lib/python3/dist-packages/odoo/addons
+    data_dir = /var/lib/odoo
+    db_maxconn = 64
+    http_port = 8069
+    longpolling_port = 8072
+    proxy_mode = True
+    list_db = False
+    log_level = info
