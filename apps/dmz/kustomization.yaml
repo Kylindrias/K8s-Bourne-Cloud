@@ -4,6 +4,6 @@ resources:
   - nginx-test
   - owncast
   - ghost
-#  - romm
   - karakeep
 #  - focalboard
+#  - romm
