@@ -20,7 +20,6 @@ spec:
       containers:
         - name: odoo
           image: odoo:17.0
-          args: ["--init", "base", "--without-demo", "all"]
           ports:
             - containerPort: 8069
             - containerPort: 8072
@@ -41,15 +40,9 @@ spec:
                   name: odoo-db-app
                   key: password
           volumeMounts:
-            - name: config
-              mountPath: /etc/odoo/odoo.conf
-              subPath: odoo.conf
             - name: filestore
               mountPath: /var/lib/odoo
       volumes:
-        - name: config
-          configMap:
-            name: odoo-config
         - name: filestore
           persistentVolumeClaim:
             claimName: odoo-filestore
