@@ -20,6 +20,7 @@ spec:
       containers:
         - name: odoo
           image: odoo:17.0
+          command: ["odoo"]
           args: ["--init", "base", "--without-demo", "all"]
           ports:
             - containerPort: 8069
