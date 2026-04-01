@@ -1,8 +1,0 @@
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: karakeep-configuration
-  namespace: karakeep
-data:
-  KARAKEEP_VERSION: release
-  NEXTAUTH_URL: http://karakeep.bourne.cloud:3000
