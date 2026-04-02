@@ -6,7 +6,7 @@ metadata:
 spec:
   secretName: odoo-tls-cert
   issuerRef:
-    name: letsencrypt-prod        # ← your ClusterIssuer name
+    name: letsencrypt-http        # ← your ClusterIssuer name
     kind: ClusterIssuer
   dnsNames:
     - odoo.wildhunde.com
@@ -36,7 +36,7 @@ metadata:
   name: odoo-https
   namespace: odoo
   annotations:
-    cert-manager.io/cluster-issuer: letsencrypt-prod
+    cert-manager.io/cluster-issuer: letsencrypt-http
 spec:
   entryPoints:
     - websecure
