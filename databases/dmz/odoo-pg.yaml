@@ -10,8 +10,14 @@ spec:
     initdb:
       database: odoo
       owner: odoo
-      postInitSQL:
-        - ALTER USER odoo CREATEDB
+  managed:
+    roles:
+      - name: odoo
+        ensure: present
+        login: true
+        createDb: true
+        passwordSecret:
+          name: odoo-db-app
   storage:
     size: 10Gi
     storageClass: longhorn
