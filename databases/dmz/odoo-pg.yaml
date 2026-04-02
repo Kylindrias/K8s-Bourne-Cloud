@@ -15,9 +15,7 @@ spec:
       - name: odoo
         ensure: present
         login: true
-        createDb: true
-        passwordSecret:
-          name: odoo-db-app
+        createdb: true
   storage:
     size: 10Gi
     storageClass: longhorn
