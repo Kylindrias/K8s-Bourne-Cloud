@@ -9,6 +9,5 @@ data:
     db_host = odoo-db-rw
     db_port = 5432
     db_user = odoo
-    db_name = odoo
+    db_name = False
     proxy_mode = True
-    list_db = False

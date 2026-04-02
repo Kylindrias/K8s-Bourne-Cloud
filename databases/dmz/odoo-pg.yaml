@@ -8,7 +8,7 @@ spec:
   imageName: ghcr.io/cloudnative-pg/postgresql:16
   bootstrap:
     initdb:
-      database: postgres
+      database: odoo
       owner: odoo
       postInitSQL:
         - ALTER USER odoo CREATEDB
