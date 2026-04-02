@@ -1,22 +1,22 @@
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: odoo-cert
-  namespace: traefik
+  name: odoo-tls
+  namespace: odoo
 spec:
-  secretName: https-odoo
+  secretName: odoo-tls-cert
   issuerRef:
-    name: letsencrypt-http
+    name: letsencrypt-prod        # ← your ClusterIssuer name
     kind: ClusterIssuer
   dnsNames:
     - odoo.wildhunde.com
 ---
-# HTTP route - redirects to HTTPS
-apiVersion: traefik.io/v1alpha1
+# HTTP → HTTPS redirect
+apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute
 metadata:
-  name: odoo-ingress-http
-  namespace: traefik
+  name: odoo-http
+  namespace: odoo
 spec:
   entryPoints:
     - web
@@ -25,53 +25,31 @@ spec:
       kind: Rule
       middlewares:
         - name: redirect-to-https
+          namespace: traefik
       services:
-        - name: odoo-service
-          kind: Service
+        - name: odoo
           port: 8069
 ---
-# HTTPS route
 apiVersion: traefik.io/v1alpha1
 kind: IngressRoute
 metadata:
-  name: odoo-ingress-https
-  namespace: traefik
+  name: odoo-https
+  namespace: odoo
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-prod
 spec:
   entryPoints:
     - websecure
+  tls:
+    secretName: odoo-tls-cert     # ← cert-manager managed, not Traefik ACME
   routes:
     - match: Host(`odoo.wildhunde.com`)
       kind: Rule
-      # middlewares:
-      #   - name: upgrade-insecure  # uncomment if seeing mixed content issues in browser
       services:
-        - name: odoo-service
-          kind: Service
+        - name: odoo
           port: 8069
-  tls:
-    secretName: https-odoo
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: odoo-service
-  namespace: traefik
-spec:
-  ports:
-    - port: 8069
-      targetPort: 8069
-      protocol: TCP
-      name: http
----
-apiVersion: v1
-kind: Endpoints
-metadata:
-  name: odoo-service
-  namespace: traefik
-subsets:
-  - addresses:
-      - ip: 10.105.20.11
-    ports:
-      - port: 8069
-        protocol: TCP
-        name: http
+    - match: Host(`odoo.wildhunde.com`) && PathPrefix(`/longpolling`)
+      kind: Rule
+      services:
+        - name: odoo
+          port: 8072
