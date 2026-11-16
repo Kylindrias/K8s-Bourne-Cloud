@@ -1,67 +1,67 @@
 # apiVersion: cert-manager.io/v1
 # kind: Certificate
 # metadata:
-#   name: odoo-cert
+#   name: plex-cert
 #   namespace: traefik
 # spec:
-#   secretName: https-odoo
+#   secretName: https-plex
 #   issuerRef:
 #     name: letsencrypt-http
 #     kind: ClusterIssuer
 #   dnsNames:
-#     - odoo.wildhunde.com
+#     - plex.bourne.cloud
 # ---
 # # HTTP route - redirects to HTTPS
 # apiVersion: traefik.io/v1alpha1
 # kind: IngressRoute
 # metadata:
-#   name: odoo-ingress-http
+#   name: plex-ingress-http
 #   namespace: traefik
 # spec:
 #   entryPoints:
 #     - web
 #   routes:
-#     - match: Host(`odoo.wildhunde.com`)
+#     - match: Host(`plex.bourne.cloud`)
 #       kind: Rule
 #       middlewares:
 #         - name: redirect-to-https
 #       services:
-#         - name: odoo-service
+#         - name: plex-service
 #           kind: Service
-#           port: 8069
+#           port: 80
 # ---
 # # HTTPS route
 # apiVersion: traefik.io/v1alpha1
 # kind: IngressRoute
 # metadata:
-#   name: odoo-ingress-https
+#   name: plex-ingress-https
 #   namespace: traefik
 # spec:
 #   entryPoints:
 #     - websecure
 #   routes:
-#     - match: Host(`odoo.wildhunde.com`)
+#     - match: Host(`plex.bourne.cloud`)
 #       kind: Rule
 #       # middlewares:
 #       #   - name: upgrade-insecure  # uncomment if seeing mixed content issues in browser
 #       services:
-#         - name: odoo-service
+#         - name: plex-service
 #           kind: Service
-#           port: 8069
+#           port: 443
 #   tls:
 #     secretName: https-odoo
 # ---
 # apiVersion: v1
 # kind: Service
 # metadata:
-#   name: odoo-service
+#   name: plex-service
 #   namespace: traefik
 # spec:
 #   ports:
-#     - port: 8069
-#       targetPort: 8069
+#     - port: 443
+#       targetPort: 443
 #       protocol: TCP
-#       name: http
+#       name: https
 # ---
 # apiVersion: v1
 # kind: Endpoints
@@ -70,8 +70,8 @@
 #   namespace: traefik
 # subsets:
 #   - addresses:
-#       - ip: 10.105.20.11
+#       - ip: 10.105.20.20
 #     ports:
-#       - port: 8069
+#       - port: 443
 #         protocol: TCP
-#         name: http
+#         name: https
