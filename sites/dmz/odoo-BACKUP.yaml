@@ -49,7 +49,7 @@
 #           kind: Service
 #           port: 443
 #   tls:
-#     secretName: https-odoo
+#     secretName: https-plex
 # ---
 # apiVersion: v1
 # kind: Service
