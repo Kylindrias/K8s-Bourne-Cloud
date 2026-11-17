@@ -11,7 +11,7 @@ spec:
   dnsNames:
     - plex.bourne.cloud
 ---
-# Lets Traefik talk to Plex's self-signed cert (valid for *.plex.direct, not the IP)
+# Lets Traefik talk to Plex's own cert (valid for *.plex.direct, not the IP)
 apiVersion: traefik.io/v1alpha1
 kind: ServersTransport
 metadata:
@@ -20,7 +20,7 @@ metadata:
 spec:
   insecureSkipVerify: true
 ---
-# HTTP route: redirects to HTTPS
+# HTTP route: redirects to HTTPS using the existing global middleware
 apiVersion: traefik.io/v1alpha1
 kind: IngressRoute
 metadata:
@@ -36,7 +36,7 @@ spec:
         - name: redirect-to-https
       services:
         - name: plex-service
-          port: 443
+          port: 32400
           scheme: https
           serversTransport: plex-transport
 ---
@@ -54,7 +54,7 @@ spec:
       kind: Rule
       services:
         - name: plex-service
-          port: 443
+          port: 32400
           scheme: https
           serversTransport: plex-transport
   tls:
@@ -67,10 +67,10 @@ metadata:
   namespace: traefik
 spec:
   ports:
-    - port: 443
-      targetPort: 443
+    - port: 32400
+      targetPort: 32400
       protocol: TCP
-      name: https
+      name: plex
 ---
 apiVersion: v1
 kind: Endpoints
@@ -81,6 +81,6 @@ subsets:
   - addresses:
       - ip: 10.105.20.20
     ports:
-      - port: 443
+      - port: 32400
         protocol: TCP
-        name: https
+        name: plex
