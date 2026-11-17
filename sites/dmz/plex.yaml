@@ -1,0 +1,86 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: plex-cert
+  namespace: traefik
+spec:
+  secretName: https-plex
+  issuerRef:
+    name: letsencrypt-http
+    kind: ClusterIssuer
+  dnsNames:
+    - plex.bourne.cloud
+---
+# Lets Traefik talk to Plex's self-signed cert (valid for *.plex.direct, not the IP)
+apiVersion: traefik.io/v1alpha1
+kind: ServersTransport
+metadata:
+  name: plex-transport
+  namespace: traefik
+spec:
+  insecureSkipVerify: true
+---
+# HTTP route: redirects to HTTPS
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: plex-ingress-http
+  namespace: traefik
+spec:
+  entryPoints:
+    - web
+  routes:
+    - match: Host(`plex.bourne.cloud`)
+      kind: Rule
+      middlewares:
+        - name: redirect-to-https
+      services:
+        - name: plex-service
+          port: 443
+          scheme: https
+          serversTransport: plex-transport
+---
+# HTTPS route: TLS terminated at Traefik with the Let's Encrypt cert
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: plex-ingress-https
+  namespace: traefik
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - match: Host(`plex.bourne.cloud`)
+      kind: Rule
+      services:
+        - name: plex-service
+          port: 443
+          scheme: https
+          serversTransport: plex-transport
+  tls:
+    secretName: https-plex
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: plex-service
+  namespace: traefik
+spec:
+  ports:
+    - port: 443
+      targetPort: 443
+      protocol: TCP
+      name: https
+---
+apiVersion: v1
+kind: Endpoints
+metadata:
+  name: plex-service
+  namespace: traefik
+subsets:
+  - addresses:
+      - ip: 10.105.20.20
+    ports:
+      - port: 443
+        protocol: TCP
+        name: https
